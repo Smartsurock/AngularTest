@@ -1,0 +1,39 @@
+<div class="container" [@route]="routeAnimation(outlet)">
+  <div class="info">
+    <router-outlet #outlet="outlet"></router-outlet>
+    <div *ngIf="!editing" class="row">
+      <div class="avatar">
+        <img src="{{profile.imageUrl}}" />
+        <div (click)="onEdit()" class="edit">Edit</div>
+      </div>
+      <div class="description">
+        <div class="main" style="margin-top: -4px;">Общая информация</div>
+        <strong>Позиция: {{profile.position}}</strong>
+        <p><span>Статус:</span> {{profile.status}}</p>
+        <p><span>Вид занятости:</span> {{profile.employment}}</p>
+        <p><span>Желаемая зарплата:</span> {{profile.payment}}</p>
+        <p><span>Желаемый город работы:</span> {{profile.wishcity}}</p>
+        <div class="main" style="margin-top: 10px;">Личная информация</div>
+        <strong>Ф.И.О: {{profile.name}}</strong>
+        <p><span>Дата рождения:</span> {{profile.birthday}}</p>
+        <p><span>Город:</span> {{profile.city}}</p>
+        <p><span>Телефон:</span> {{profile.phone}}</p>
+        <p><span>Почта:</span> {{profile.email}}</p>
+        <span>Соц. сеть: </span><a class="link" href="{{profile.social}}" target="_blank">{{profile.social}}</a>
+      </div>
+    </div>
+  </div>
+  <div class="job">
+    <div class="skils">
+      <div class="main">Скилы</div>
+      <p>Коммерческого опыта - нет, знания - есть:</p>
+      <p>Html, css (scss), js (Vanilla/jQuery), БЭМ, gulp, адаптив, кроссбраузер.</p>
+    </div>
+    <div class="experience">
+      <div class="main">Опыт работы</div>
+      <strong>GlobalLogic</strong>
+      <p>Junior Front-End Developer</p>
+      <p>5 месяцев</p>
+    </div>
+  </div>
+</div>

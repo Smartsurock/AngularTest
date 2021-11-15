@@ -1,0 +1,94 @@
+.container {
+  height: 400px;
+  overflow: auto;
+  padding: 0px 5px 0px 0px;
+  &::-webkit-scrollbar {
+    width: 3px;
+    border-radius: 1px;
+  }
+  &::-webkit-scrollbar-track {
+    background-color: #fff;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: rgb(136, 136, 136);
+  }
+  & label {
+    white-space: nowrap;
+    margin: 0px 5px 0px 0px;
+  }
+  & input {
+    line-height: 23px;
+    padding: 0px 8px;
+    border: 1px solid transparent;
+  }
+  & input.ng-invalid.ng-touched {
+    border: 1px solid red;
+    &::-webkit-input-placeholder {
+      color: red;
+    }
+  }
+}
+.buttons {
+  display: flex;
+  justify-content: space-between;
+}
+.button {
+  flex: 0 1 50%;
+  padding: 4px 12px;
+  font-size: 15px;
+  background-color: #fff;
+  border-radius: 2px;
+  background-color: rgb(202, 202, 202);
+  transition: 0.3s;
+  &:first-child {
+    margin: 0px 10px 0px 0px;
+    &:hover {
+      box-shadow: 0 0 10px inset rgb(184, 0, 0);
+    }
+  }
+  &:last-child:hover {
+    box-shadow: 0 0 10px inset rgb(22, 133, 0);
+  }
+}
+.flex-container {
+  display: flex;
+}
+.flex-item:first-child {
+  flex: 0 0 200px;
+  width: 200px;
+}
+.flex-item:last-child {
+  flex: 1 1 auto;
+  margin: 0px 0px 0px 15px;
+}
+.row {
+  display: flex;
+  margin: 0px 0px 5px 0px;
+}
+.form-control {
+  flex: 1 1 auto;
+  padding: 0px 5px;
+  font-size: 16px;
+  border-radius: 2px;
+}
+.img-responsive {
+  max-width: 200px;
+  margin: 0px 0px 10px 0px;
+}
+.main {
+  font-size: 24px;
+  font-weight: 600;
+}
+.image {
+  display: flex;
+  flex-direction: column;
+  height: calc(100% - 36px);
+  & input {
+    width: 200px;
+    margin: 5px 0px;
+  }
+  & label {
+    display: block;
+    margin: 8px 0px 0px 0px;
+  }
+}

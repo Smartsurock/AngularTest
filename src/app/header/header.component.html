@@ -1,0 +1,15 @@
+<div class="menu">
+  <div *ngIf="!isLoged" [@Login] class="login">
+    <a routerLink="/login" class="menu__link">
+      <span>Login</span>
+    </a>
+  </div>
+  <div *ngIf="isLoged" [@Logout] class="logout">
+    <a (click)="onLogout()" class="menu__link">
+      <span>Logout</span>
+    </a>
+  </div>
+  <div *ngIf="isLoged" [@userName] class="user-name">
+    {{name}}
+  </div>
+</div>

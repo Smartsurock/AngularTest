@@ -1,0 +1,36 @@
+.user {
+  padding: 5px;
+  margin: 10px;
+  border-radius: 2px;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+}
+.row {
+  display: flex;
+  height: 100px;
+}
+.avatar {
+  flex: 0 0 100px;
+  width: 100px;
+  position: relative;
+  margin: 0px 10px 0px 0px;
+  background-repeat: no-repeat;
+  background-position: 0px;
+  background-size: cover;
+}
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 5px 0px;
+  & p {
+    line-height: 30px;
+    font-size: 18px;
+  }
+  & a {
+    color: #000;
+  }
+  & a span {
+    text-decoration: underline;
+  }
+}

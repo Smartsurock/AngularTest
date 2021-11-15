@@ -1,0 +1,77 @@
+<div class="container">
+  <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+    <div class="flex-container">
+      <div class="flex-item">
+        <div class="buttons">
+          <button class="button" type="button" (click)="onCancel()">
+            Cancel
+          </button>
+          <button [disabled]="profileForm.invalid" class="button">Save</button>
+        </div>
+        <div class="image">
+          <div class="input">
+            <label for="imageUrl">Image URL: </label>
+            <input #imageUrl formControlName="imageUrl" id="imageUrl" type="text" class="form-control">
+          </div>
+          <div class="output">
+            <div style="max-width: 200px;">
+              <img [src]="imageUrl.value" class="img-responsive" />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="flex-item">
+        <div class="main">Общая информация</div>
+        <div class="row">
+          <label for="position"><strong>Позиция: </strong></label>
+          <input formControlName="position" id="position" type="text" class="form-control"
+            placeholder="{{profileForm.controls.position.invalid && profileForm.controls.position.untouched ? 'Кем ты хочешь стать, когда вырастешь?' : 'Не, ну я серьёзно!'}}">
+        </div>
+        <div class="row">
+          <label for="status">Статус: </label>
+          <input formControlName="status" id="status" type="text" class="form-control">
+        </div>
+        <div class="row">
+          <label for="employment">Вид занятости: </label>
+          <input formControlName="employment" id="employment" type="text" class="form-control">
+        </div>
+        <div class="row">
+          <label for="payment">Желаемая зарплата: </label>
+          <input formControlName="payment" id="payment" type="text" class="form-control">
+        </div>
+        <div class="row">
+          <label for="wishcity">Желаемый город работы: </label>
+          <input formControlName="wishcity" id="wishcity" type="text" class="form-control">
+        </div>
+        <div class="main" style="margin-top: 5px;">Личная информация</div>
+        <div class="row">
+          <label for="name"><strong>Ф.И.О: </strong> </label>
+          <input formControlName="name" id="name" type="text" class="form-control"
+            placeholder="{{profileForm.controls.position.invalid && profileForm.controls.position.untouched ? 'Как тебя зовут?' : 'Имя! Мне нужно имя!'}}">
+        </div>
+        <div class="row">
+          <label for="birthday">Дата рождения: </label>
+          <input formControlName="birthday" id="birthday" type="text" class="form-control">
+        </div>
+        <div class="row">
+          <label for="city">Город: </label>
+          <input formControlName="city" id="city" type="text" class="form-control">
+        </div>
+        <div class="row">
+          <label for="phone">Телефон: </label>
+          <input formControlName="phone" id="phone" type="text" class="form-control"
+            placeholder="{{profileForm.controls.position.invalid && profileForm.controls.position.untouched ? 'Мы вам позвоним.' : 'Мы звонить НЕ станем!'}}">
+        </div>
+        <div class="row">
+          <label for="email">Почта: </label>
+          <input formControlName="email" id="email" type="text" class="form-control"
+            placeholder="{{profileForm.controls.position.invalid && profileForm.controls.position.untouched ? 'Почтовый индекс.' : 'Забыл свой почтовый индекс?'}}">
+        </div>
+        <div class="row">
+          <label for="social">Соц. сеть: </label>
+          <input formControlName="social" id="social" type="text" class="form-control">
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
