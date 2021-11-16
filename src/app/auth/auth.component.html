@@ -1,7 +1,8 @@
 <div class="container">
   <div class="form">
     <app-error *ngIf="error" [error]="error" class="error"></app-error>
-    <form [formGroup]="authForm">
+    <app-spinner *ngIf="loading"></app-spinner>
+    <form [formGroup]="authForm" *ngIf="!loading">
       <div class="row">
         <label for="email">Email: </label>
         <input type="text" formControlName="email" id="email" class="form-control"
