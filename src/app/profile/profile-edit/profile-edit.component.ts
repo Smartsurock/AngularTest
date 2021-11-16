@@ -17,14 +17,14 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private store: Store<fromAppReducer.AppState>) { }
 
-    profile: Profile;
+  profile: Profile;
   profileForm: FormGroup;
 
   ngOnInit() {
-    this.store.select('profile')
-      .subscribe(state => {
-        this.profile = state.profiles[0];
-      });
+    // this.store.select('profile')
+    //   .subscribe(state => {
+    //     this.profile = state.profiles[0];
+    //   });
 
     this.initForm();
   }
@@ -37,8 +37,7 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
     const newUser = this.profileForm.value;
     //======
     newUser.privateMail = 'test@test.ru';
-    newUser.id = 1;
-    //  new Date().getTime().toString();
+    newUser.id = 2;
     //======
     this.store.dispatch(new ProfileActions.EditProfile(
       { newUser, index: newUser.id }

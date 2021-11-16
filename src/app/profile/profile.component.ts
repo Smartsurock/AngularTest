@@ -2,7 +2,6 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
-import { map } from 'rxjs/operators';
 import * as fromAppReducer from '../store/app.reducer';
 import * as ProfileActions from './profile-store/profile.actions';
 import { profileAnimation } from './profile.animation';
@@ -22,16 +21,23 @@ export class ProfileComponent implements OnInit, OnDestroy {
   editing: boolean;
   editingSub: Subscription;
   profile: Profile;
+  userMail: string;
 
   ngOnInit() {
+    this.store.select('auth').subscribe(state => {
+      this.userMail = state.user.email;
+    })
+
     this.editingSub = this.store.select('profile').subscribe(state => {
       this.editing = state.editing;
+      let index = state.profiles.findIndex(profile => {
+        return profile.privateMail === this.userMail;
+      });
+      this.profile = state.profiles[index];
     });
 
-    this.store.select('profile')
-      .subscribe(state => {
-        this.profile = state.profiles[0];
-      })
+    console.log(this.userMail);
+
   }
 
   ngOnDestroy() {

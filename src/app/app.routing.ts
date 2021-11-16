@@ -7,6 +7,8 @@ import { EditResolver } from "./profile/edit.resolver";
 import { ProfileResolver } from "./profile/profile.resolver";
 import { AuthComponent } from "./auth/auth.component";
 import { ErrorPageComponent } from "./error-page/error-page.component";
+import { UserInfoComponent } from "./users/user-info/user-info.component";
+import { UsersListComponent } from "./users/users-list/users-list.component";
 
 export const appRouting: Routes = [
   { path: '', redirectTo: '/profile', pathMatch: 'full' },
@@ -25,7 +27,11 @@ export const appRouting: Routes = [
   {
     path: 'users', component: UsersComponent,
     resolve: [ProfileResolver],
-    data: { animation: '2' }
+    data: { animation: '2' },
+    children: [
+      { path: '', component: UsersListComponent, data: { animation: '7' }, },
+      { path: ':id', component: UserInfoComponent, data: { animation: '6' }, }
+    ]
   },
   { path: 'posts', component: PostsComponent, data: { animation: '3' } },
   { path: 'error', component: ErrorPageComponent, data: { animation: '5' } },

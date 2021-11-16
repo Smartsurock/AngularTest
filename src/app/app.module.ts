@@ -24,6 +24,8 @@ import { AuthEffects } from './auth/auth-store/auth.effects';
 import { ErrorPageComponent } from './error-page/error-page.component';
 import { ErrorComponent } from './auth/error/error.component';
 import { SpinnerComponent } from './auth/spinner/spinner.component';
+import { UserInfoComponent } from './users/user-info/user-info.component';
+import { UsersListComponent } from './users/users-list/users-list.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +42,8 @@ import { SpinnerComponent } from './auth/spinner/spinner.component';
     ErrorPageComponent,
     ErrorComponent,
     SpinnerComponent,
+    UserInfoComponent,
+    UsersListComponent,
   ],
   imports: [
     BrowserModule,

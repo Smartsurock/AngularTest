@@ -1,23 +1,21 @@
 import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { map } from 'rxjs/operators';
-import { Profile } from '../profile/profile.model';
-import * as fromAppReducer from '../store/app.reducer';
+import { RouterOutlet } from '@angular/router';
+import { usersAnimation } from './users.animation';
 
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
-  styleUrls: ['./users.component.scss']
+  styleUrls: ['./users.component.scss'],
+  animations: [usersAnimation]
 })
 export class UsersComponent implements OnInit {
-  constructor(private store: Store<fromAppReducer.AppState>) { }
-
-  profiles: Profile[];
+  constructor() { }
 
   ngOnInit() {
-    this.store.select('profile')
-      .subscribe(state => {
-        this.profiles = state.profiles;
-      })
+  }
+
+  routeAnimation(outlet: RouterOutlet) {
+    return outlet && outlet.activatedRouteData
+      && outlet.activatedRouteData['animation'];
   }
 }

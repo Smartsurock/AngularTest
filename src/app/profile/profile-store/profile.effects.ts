@@ -24,7 +24,7 @@ export class ProfileEffects {
   );
 
   @Effect({ dispatch: false })
-  putProfile = this.actions.pipe(
+  putProfiles = this.actions.pipe(
     ofType(ProfileActions.SAVE_PROFILES),
     withLatestFrom(this.store.select('profile')),
     switchMap(([action, state]) => {

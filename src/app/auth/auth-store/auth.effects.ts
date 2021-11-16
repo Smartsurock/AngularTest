@@ -35,13 +35,13 @@ function handleError(response) {
   }
 
   switch (response.error.error.message) {
-    case 'EMAIL_EXISTS': errorMessage = "Это мыло уже занято бля!";
+    case 'EMAIL_EXISTS': errorMessage = "Это мыло уже занято!";
       break;
     case 'OPERATION_NOT_ALLOWED': errorMessage = "Регистрация не завершена, обратитесь через несколько лет!";
       break;
     case 'TOO_MANY_ATTEMPTS_TRY_LATER : Access to this account has been temporarily disabled due to many failed login attempts. You can immediately restore it by resetting your password or you can try again later.': errorMessage = "Хз чё ты тут наклацал, придёться подождать... недельку...!";
       break;
-    case 'EMAIL_NOT_FOUND': errorMessage = "Нет такого мыла, бля!";
+    case 'EMAIL_NOT_FOUND': errorMessage = "Нет такого мыла!";
       break;
     case 'INVALID_PASSWORD': errorMessage = "Инвалидный пароль!";
       break;
@@ -85,7 +85,7 @@ export class AuthEffects {
   @Effect()
   authLogin = this.actions.pipe(
     ofType(AuthActions.LOGIN_START),
-    switchMap((loginAction: AuthActions.SignUpStart) => {
+    switchMap((loginAction: AuthActions.LoginStart) => {
       return this.http.post<AuthResponsData>(`https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${environment.firebaseAPIkey}`, {
         email: loginAction.payload.email,
         password: loginAction.payload.password,
