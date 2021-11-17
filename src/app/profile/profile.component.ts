@@ -1,5 +1,5 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute, Params, Router, RouterOutlet } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import * as fromAppReducer from '../store/app.reducer';
@@ -19,16 +19,21 @@ export class ProfileComponent implements OnInit, OnDestroy {
     private store: Store<fromAppReducer.AppState>) { }
 
   editing: boolean;
-  editingSub: Subscription;
+  profileSub: Subscription;
+  authSub: Subscription;
+  routeSub: Subscription;
   profile: Profile;
   userMail: string;
+  edit: boolean;
 
   ngOnInit() {
-    this.store.select('auth').subscribe(state => {
-      this.userMail = state.user.email;
+    this.authSub = this.store.select('auth').subscribe(state => {
+      if (state.user) {
+        this.userMail = state.user.email;
+      }
     })
 
-    this.editingSub = this.store.select('profile').subscribe(state => {
+    this.profileSub = this.store.select('profile').subscribe(state => {
       this.editing = state.editing;
       let index = state.profiles.findIndex(profile => {
         return profile.privateMail === this.userMail;
@@ -36,19 +41,26 @@ export class ProfileComponent implements OnInit, OnDestroy {
       this.profile = state.profiles[index];
     });
 
-    console.log(this.userMail);
-
+    this.routeSub = this.route.params.subscribe((params: Params) => {
+      this.edit = params['id'] === undefined || null;
+    });
   }
 
   ngOnDestroy() {
-    if (this.editingSub) {
-      this.editingSub.unsubscribe();
-    }
+    this.unsubscriber(this.authSub);
+    this.unsubscriber(this.profileSub);
+    this.unsubscriber(this.routeSub);
   }
 
   onEdit() {
     this.router.navigate(['edit'], { relativeTo: this.route });
     this.store.dispatch(new ProfileActions.EditMode(true));
+  }
+
+  unsubscriber(subscribe) {
+    if (subscribe) {
+      subscribe.unsubscribe();
+    }
   }
 
   routeAnimation(outlet: RouterOutlet) {

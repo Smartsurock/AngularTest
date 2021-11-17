@@ -28,7 +28,7 @@ export class ProfileEffects {
     ofType(ProfileActions.SAVE_PROFILES),
     withLatestFrom(this.store.select('profile')),
     switchMap(([action, state]) => {
-      return this.http.put<Profile>('https://profile-877f9-default-rtdb.europe-west1.firebasedatabase.app/profile.json', state.profiles);
+      return this.http.put<Profile[]>('https://profile-877f9-default-rtdb.europe-west1.firebasedatabase.app/profile.json', state.profiles);
     })
   );
 }

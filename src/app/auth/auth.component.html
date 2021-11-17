@@ -4,9 +4,9 @@
     <app-spinner *ngIf="loading"></app-spinner>
     <form [formGroup]="authForm" *ngIf="!loading">
       <div class="row">
-        <label for="email">Email: </label>
-        <input type="text" formControlName="email" id="email" class="form-control"
-          placeholder="{{authForm.controls.email.invalid && authForm.controls.email.untouched ? 'Тута должно быть мыло!' : 'МЫЛО!!!'}}">
+        <label for="mail">Email: </label>
+        <input type="text" formControlName="mail" id="mail" class="form-control"
+          placeholder="{{authForm.controls.mail.invalid && authForm.controls.mail.untouched ? 'Тута должно быть мыло!' : 'МЫЛО!!!'}}">
       </div>
       <div class="row">
         <label for="password">Password: </label>

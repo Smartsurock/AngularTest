@@ -47,7 +47,7 @@
         <div class="row">
           <label for="name"><strong>Ф.И.О: </strong> </label>
           <input formControlName="name" id="name" type="text" class="form-control"
-            placeholder="{{profileForm.controls.position.invalid && profileForm.controls.position.untouched ? 'Как тебя зовут?' : 'Имя! Мне нужно имя!'}}">
+            placeholder="{{profileForm.controls.name.invalid && profileForm.controls.name.untouched ? 'Как тебя зовут?' : 'Имя! Мне нужно имя!'}}">
         </div>
         <div class="row">
           <label for="birthday">Дата рождения: </label>
@@ -60,12 +60,12 @@
         <div class="row">
           <label for="phone">Телефон: </label>
           <input formControlName="phone" id="phone" type="text" class="form-control"
-            placeholder="{{profileForm.controls.position.invalid && profileForm.controls.position.untouched ? 'Мы вам позвоним.' : 'Мы звонить НЕ станем!'}}">
+            placeholder="{{profileForm.controls.phone.invalid && profileForm.controls.phone.untouched ? 'Мы вам позвоним.' : 'Мы звонить НЕ станем!'}}">
         </div>
         <div class="row">
           <label for="email">Почта: </label>
           <input formControlName="email" id="email" type="text" class="form-control"
-            placeholder="{{profileForm.controls.position.invalid && profileForm.controls.position.untouched ? 'Почтовый индекс.' : 'Забыл свой почтовый индекс?'}}">
+            placeholder="{{profileForm.controls.email.invalid && profileForm.controls.email.untouched ? 'Почтовый индекс.' : 'Забыл свой почтовый индекс?'}}">
         </div>
         <div class="row">
           <label for="social">Соц. сеть: </label>

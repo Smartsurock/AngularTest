@@ -31,6 +31,12 @@ export function profileResucer(state: State = initialState, action: ProfileActio
         profiles: [...editedUsers],
       }
 
+    case ProfileActions.ADD_PROFILE:
+      return {
+        ...state,
+        profiles: [...state.profiles, action.payload],
+      }
+
     case ProfileActions.SET_PROFILES:
       return {
         ...state,

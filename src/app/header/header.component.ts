@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Subscription } from 'rxjs';
+import { Observable, Subscriber, Subscription } from 'rxjs';
 import * as AuthActions from '../auth/auth-store/auth.actions';
 import * as fromAppReducer from '../store/app.reducer';
 import { headerAnimation } from './header.animation';
@@ -16,18 +16,24 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   isLoged = false;
   private userSub: Subscription;
-  name: string;
+  time: Date;
+  timer: Observable<number>;
 
   ngOnInit() {
     this.userSub = this.store.select('auth').subscribe(state => {
       this.isLoged = !!state.user;
       if (state.user) {
-        this.name = state.user.email;
-      } else {
-        this.name = null;
+        this.time = state.user._tokenExpirationDate;
       }
     });
+    this.timer = new Observable<number>((observer: Subscriber<number>) => {
+      setInterval(() => {
+        return observer.next(this.time.getTime() - new Date().getTime());
+      }, 1000);
+    });
   }
+
+
 
   ngOnDestroy() {
     if (this.userSub) {

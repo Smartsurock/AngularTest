@@ -9,6 +9,8 @@ import { Component, OnInit } from '@angular/core';
 export class UserInfoComponent implements OnInit {
   constructor(private location: Location) { }
 
+  edit = false;
+
   ngOnInit(): void {
   }
 

@@ -6,6 +6,7 @@ export const EDIT_PROFILE = 'EDIT_PROFILE';
 export const SET_PROFILES = 'SET_PROFILES';
 export const GET_PROFILES = 'GET_PROFILES';
 export const SAVE_PROFILES = 'SAVE_PROFILES';
+export const ADD_PROFILE = 'ADD_PROFILE';
 
 export class EditMode implements Action {
   readonly type = EDIT_MODE;
@@ -31,13 +32,18 @@ export class SetProfiles implements Action {
 
 export class SaveProfiles implements Action {
   readonly type = SAVE_PROFILES;
+}
 
-  constructor(public payload: Profile[]) { }
+export class AddProfile implements Action {
+  readonly type = ADD_PROFILE;
+
+  constructor(public payload: Profile) { }
 }
 
 export type ProfileActions =
   | SaveProfiles
   | EditMode
+  | AddProfile
   | EditProfile
   | GetProfiles
   | SetProfiles;
