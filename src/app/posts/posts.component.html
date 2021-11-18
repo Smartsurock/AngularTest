@@ -1,3 +1,13 @@
-<div class="container" *ngFor="let post of posts; let i = index" (click)="ondelete(i)" [@rout]>
-  {{post}}
+<div class="container">
+  <app-post [@add]="anim" *ngFor="let post of posts; let i = index" [post]="post"></app-post>
+</div>
+<div class="form-box">
+  <form [formGroup]="postForm" (ngSubmit)="onSubmit()" class="form">
+    <div class="message">
+      <textarea formControlName="post" name="post" id="post" resize="false"></textarea>
+    </div>
+    <div class="button">
+      <button [disabled]="postForm.invalid">Отправить</button>
+    </div>
+  </form>
 </div>

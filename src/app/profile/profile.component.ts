@@ -25,25 +25,35 @@ export class ProfileComponent implements OnInit, OnDestroy {
   profile: Profile;
   userMail: string;
   edit: boolean;
+  id: number;
 
   ngOnInit() {
-    this.authSub = this.store.select('auth').subscribe(state => {
-      if (state.user) {
-        this.userMail = state.user.email;
-      }
-    })
-
-    this.profileSub = this.store.select('profile').subscribe(state => {
-      this.editing = state.editing;
-      let index = state.profiles.findIndex(profile => {
-        return profile.privateMail === this.userMail;
-      });
-      this.profile = state.profiles[index];
-    });
-
     this.routeSub = this.route.params.subscribe((params: Params) => {
       this.edit = params['id'] === undefined || null;
+      if (!this.edit) {
+        this.id = params['id'];
+      }
     });
+
+    if (this.edit) {
+      this.authSub = this.store.select('auth').subscribe(state => {
+        if (state.user) {
+          this.userMail = state.user.email;
+        }
+      })
+
+      this.profileSub = this.store.select('profile').subscribe(state => {
+        this.editing = state.editing;
+        let index = state.profiles.findIndex(profile => {
+          return profile.privateMail === this.userMail;
+        });
+        this.profile = state.profiles[index];
+      });
+    } else {
+      this.profileSub = this.store.select('profile').subscribe(state => {
+        this.profile = state.profiles[this.id];
+      });
+    }
   }
 
   ngOnDestroy() {
@@ -57,7 +67,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.store.dispatch(new ProfileActions.EditMode(true));
   }
 
-  unsubscriber(subscribe) {
+  unsubscriber(subscribe: Subscription) {
     if (subscribe) {
       subscribe.unsubscribe();
     }

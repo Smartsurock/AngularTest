@@ -12,6 +12,7 @@ export const usersAnimation = [
             position: 'absolute',
             opacity: 1,
             transform: 'translateY(0px)',
+            width: '100%',
           }),
           animate('500ms ease-in',
             style({
@@ -25,6 +26,7 @@ export const usersAnimation = [
             position: 'absolute',
             opacity: 0,
             transform: 'translateY(40px)',
+            width: '100%',
           }),
           animate('500ms ease-in',
             style({

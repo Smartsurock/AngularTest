@@ -60,8 +60,8 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
     newUser.id = this.index;
 
     this.store.dispatch(new ProfileActions.EditProfile(
-      { newUser, index: newUser.id }
-    ));
+      { newUser: newUser, index: this.index }
+    ))
     this.store.dispatch(new ProfileActions.SaveProfiles());
     this.onCancel();
   }
@@ -79,11 +79,17 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
       employment: new FormControl(this.profile.employment),
       payment: new FormControl(this.profile.payment),
       wishcity: new FormControl(this.profile.wishcity),
-      name: new FormControl(this.profile.name, [Validators.required]),
+      name: new FormControl(this.profile.name,
+        // [Validators.required]
+      ),
       birthday: new FormControl(this.profile.birthday),
       city: new FormControl(this.profile.city),
-      phone: new FormControl(this.profile.phone, [Validators.required]),
-      email: new FormControl(this.profile.email, [Validators.required]),
+      phone: new FormControl(this.profile.phone,
+        // [Validators.required]
+      ),
+      email: new FormControl(this.profile.email,
+        // [Validators.required]
+      ),
       social: new FormControl(this.profile.social),
     });
   }

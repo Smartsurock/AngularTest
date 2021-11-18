@@ -1,40 +1,70 @@
-import { Component, OnInit } from '@angular/core';
-import { animate, state, style, transition, trigger } from "@angular/animations";
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Store } from '@ngrx/store';
+import { Subscription } from 'rxjs';
+import * as fromAppReducer from '../store/app.reducer';
+import { Post } from './post.model';
+import * as PostActions from './posts-store/posts.actions';
+import { postsAnimation } from './posts.animation';
 
 @Component({
   selector: 'app-posts',
   templateUrl: './posts.component.html',
   styleUrls: ['./posts.component.scss'],
-  animations: [
-    trigger('rout', [
-      state('from', style({
-        opacity: 0.1,
-        transform: 'translateX(0)',
-      })),
-      // state('to', style({
-      //   transform: 'translateX(200px)',
-      // })),
-      // transition('from => to', animate(500)),
-      transition('* => void', [
-        animate(500, style({
-          opacity: 0,
-          transform: 'translateY(20px)',
-        }))
-      ])
-    ]),
-  ]
+  animations: [postsAnimation]
 })
-export class PostsComponent implements OnInit {
+export class PostsComponent implements OnInit, OnDestroy {
+  constructor(private store: Store<fromAppReducer.AppState>) { }
 
-  constructor() { }
+  postForm: FormGroup;
+  posts: Post[];
+  userEmail: string;
+  imageUrl: string;
+  postSub: Subscription;
+  authSub: Subscription;
+  profileSub: Subscription;
 
-  ngOnInit(): void {
+  anim = "anim";
+
+  ngOnInit() {
+    this.postForm = new FormGroup({
+      post: new FormControl(null, Validators.required),
+    });
+
+    this.postSub = this.store.select('post').subscribe(state => {
+      this.posts = state.posts;
+    });
+
+    this.authSub = this.store.select('auth').subscribe(state => {
+      if (state.user) {
+        this.userEmail = state.user.email;
+      }
+    });
+
+    this.profileSub = this.store.select('profile').subscribe(state => {
+      let index = state.profiles.findIndex(profile => {
+        return profile.privateMail === this.userEmail;
+      });
+      this.imageUrl = state.profiles[index].imageUrl;
+    });
   }
 
-  posts = ['123', 'asd', '32', 'askgfsfgkasfas', 'askgfsfgkasfas', 'cZC ', 'askgfsfgkasfas', 'fsdf', 'askgfsfgkasfas', 'askgfsfgsDSAkasfas', 'sad', '4324', 'askgfSF sfgkasfas', 'askgfsfgkasfas', 'askgfsfgkasfas', 'fgh', '6456', 'cZXC', 'askgfsfgkasfas', 'askgfsfgkasfas', 'askgfsfgkasfas', 'askgfsfgkasfas', 'askgfsfgkasfas', 'sdad', 'askgfsfgkasfas', 'askgfsfgkasfas'];
+  ngOnDestroy() {
+    this.unsubscriber(this.postSub);
+    this.unsubscriber(this.authSub);
+    this.unsubscriber(this.profileSub);
+  }
 
+  unsubscriber(subscription: Subscription) {
+    if (subscription) {
+      subscription.unsubscribe();
+    }
+  }
 
-  ondelete(index) {
-    this.posts.splice(index, 1)
+  onSubmit() {
+    this.store.dispatch(new PostActions.AddPost(
+      new Post(this.postForm.value.post, this.imageUrl, this.userEmail)
+    ));
+    // this.postForm.reset();
   }
 }

@@ -9,7 +9,7 @@
   height: 65px;
   line-height: 65px;
   padding: 0px 30px;
-  background-color: rgb(100, 245, 255);
+  background-color: rgb(115, 176, 180);
   margin: 0px 0px 10px 0px;
   border-radius: 2px;
 }
@@ -31,5 +31,5 @@
   position: relative;
 }
 ::-webkit-scrollbar {
-  width: 0px;
+  display: none;
 }

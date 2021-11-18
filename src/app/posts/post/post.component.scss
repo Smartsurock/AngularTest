@@ -1,7 +1,23 @@
 .container {
-  height: 50px;
-  border: 1px solid rgba(0, 0, 0, 1);
-  margin: 0px 0px 10px 0px;
-  padding: 5px 10px;
+  min-height: 70px;
+  padding: 5px;
   border-radius: 2px;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
+  width: 100%;
+  background-color: rgb(244, 244, 244);
+  margin: 0px 0px 10px 0px;
+  display: flex;
+}
+.image {
+  flex: 0 0 100px;
+  width: 100px;
+  max-height: 120px;
+  position: relative;
+  margin: 0px 10px 0px 0px;
+  background-repeat: no-repeat;
+  background-position: 0px;
+  background-size: cover;
+}
+.text {
+  flex: 1 1 auto;
 }

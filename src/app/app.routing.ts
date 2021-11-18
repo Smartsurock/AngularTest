@@ -33,7 +33,11 @@ export const appRouting: Routes = [
       { path: ':id', component: UserInfoComponent, data: { animation: '6' }, }
     ]
   },
-  { path: 'posts', component: PostsComponent, data: { animation: '3' } },
+  {
+    path: 'posts', component: PostsComponent,
+    resolve: [ProfileResolver],
+    data: { animation: '3' }
+  },
   { path: 'error', component: ErrorPageComponent, data: { animation: '5' } },
   {
     path: '**', redirectTo: '/error', pathMatch: 'full',

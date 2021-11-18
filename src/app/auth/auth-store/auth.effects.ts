@@ -15,6 +15,7 @@ export interface AuthResponsData {
   refreshToken: string;
   expiresIn: string;
   localId: string;
+  registered?: boolean;
 }
 
 function handleAuthentication(email: string, userId: string, token: string, expiresIn: number) {

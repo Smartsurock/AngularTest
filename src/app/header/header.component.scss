@@ -21,16 +21,20 @@
       height: 100%;
       left: 0;
       box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.2), 2px 2px 4px rgba(0, 0, 0, 0.2);
-      border-radius: 2px;
     }
   }
 }
 .login {
   position: absolute;
+  border-radius: 2px;
 }
 .logout {
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgb(57, 147, 153);
+  & span {
+    color: rgba(255, 255, 255, 0.8);
+  }
   position: absolute;
+  border-radius: 2px;
 }
 .user-name {
   margin-right: 0;

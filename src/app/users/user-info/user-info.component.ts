@@ -1,4 +1,3 @@
-import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,14 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./user-info.component.scss']
 })
 export class UserInfoComponent implements OnInit {
-  constructor(private location: Location) { }
+  constructor() { }
 
-  edit = false;
-
-  ngOnInit(): void {
-  }
-
-  onBack() {
-    this.location.back();
+  ngOnInit() {
   }
 }
