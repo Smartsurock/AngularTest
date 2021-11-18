@@ -24,11 +24,11 @@ export function profileResucer(state: State = initialState, action: ProfileActio
         ...state.profiles[action.payload.index],
         ...action.payload.newUser
       }
-      const editedUsers = [...state.profiles];
-      editedUsers[action.payload.index] = editedProfile;
+      const editedProfiles = [...state.profiles];
+      editedProfiles[action.payload.index] = editedProfile;
       return {
         ...state,
-        profiles: [...editedUsers],
+        profiles: [...editedProfiles],
       }
 
     case ProfileActions.ADD_PROFILE:

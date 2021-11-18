@@ -18,13 +18,21 @@ export class ProfileEffects {
     ofType(ProfileActions.GET_PROFILES),
     switchMap(() => {
       return this.http.get<Profile[]>('https://profile-877f9-default-rtdb.europe-west1.firebasedatabase.app/profile.json')
-    }), map((profiles: Profile[]) => {
+    }),
+    map(profiles => {
+      if (profiles) {
+        return profiles;
+      } else {
+        return [];
+      }
+    }),
+    map((profiles: Profile[]) => {
       return new ProfileActions.SetProfiles(profiles);
     })
   );
 
   @Effect({ dispatch: false })
-  putProfiles = this.actions.pipe(
+  saveProfiles = this.actions.pipe(
     ofType(ProfileActions.SAVE_PROFILES),
     withLatestFrom(this.store.select('profile')),
     switchMap(([action, state]) => {

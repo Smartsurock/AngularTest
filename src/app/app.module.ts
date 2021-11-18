@@ -26,7 +26,7 @@ import { ErrorComponent } from './auth/error/error.component';
 import { SpinnerComponent } from './auth/spinner/spinner.component';
 import { UserInfoComponent } from './users/user-info/user-info.component';
 import { UsersListComponent } from './users/users-list/users-list.component';
-import { PostEffects } from './posts/posts-store/posts.effects';
+import { PostsEffects } from './posts/posts-store/posts.effects';
 
 @NgModule({
   declarations: [
@@ -52,7 +52,7 @@ import { PostEffects } from './posts/posts-store/posts.effects';
     RouterModule.forRoot(appRouting, { useHash: true }),
     BrowserAnimationsModule,
     StoreModule.forRoot(fromAppReducer.appReducer),
-    EffectsModule.forRoot([AuthEffects, ProfileEffects, PostEffects]),
+    EffectsModule.forRoot([AuthEffects, ProfileEffects, PostsEffects]),
     ReactiveFormsModule,
   ],
   providers: [],

@@ -1,5 +1,7 @@
 <div class="container">
-  <app-post [@add]="anim" *ngFor="let post of posts; let i = index" [post]="post"></app-post>
+  <app-post [@add]="anim" *ngFor="let post of posts; let i = index" [post]="post" [index]="i"
+    (delete)="onDelete($event)">
+  </app-post>
   <!-- <div style="border: 1px solid #000;" [@add] *ngFor="let post of posts; let i = index">
     {{post}}
   </div> -->

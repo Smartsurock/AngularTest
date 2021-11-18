@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
@@ -20,6 +20,7 @@ export class PostsComponent implements OnInit, OnDestroy {
   posts: Post[];
   userEmail: string;
   imageUrl: string;
+  userName: string;
   postSub: Subscription;
   authSub: Subscription;
   profileSub: Subscription;
@@ -31,7 +32,7 @@ export class PostsComponent implements OnInit, OnDestroy {
       post: new FormControl(null, Validators.required),
     });
 
-    this.postSub = this.store.select('post').subscribe(state => {
+    this.postSub = this.store.select('posts').subscribe(state => {
       this.posts = state.posts;
     });
 
@@ -46,6 +47,7 @@ export class PostsComponent implements OnInit, OnDestroy {
         return profile.privateMail === this.userEmail;
       });
       this.imageUrl = state.profiles[index].imageUrl;
+      this.userName = state.profiles[index].name;
     });
   }
 
@@ -63,8 +65,12 @@ export class PostsComponent implements OnInit, OnDestroy {
 
   onSubmit() {
     this.store.dispatch(new PostActions.AddPost(
-      new Post(this.postForm.value.post, this.imageUrl, this.userEmail)
+      new Post(this.userName, this.postForm.value.post, this.imageUrl, this.userEmail)
     ));
-    // this.postForm.reset();
+    this.postForm.reset();
+  }
+
+  onDelete(index) {
+    this.store.dispatch(new PostActions.DeletePost(index));
   }
 }

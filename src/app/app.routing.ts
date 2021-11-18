@@ -10,6 +10,7 @@ import { ErrorPageComponent } from "./error-page/error-page.component";
 import { UserInfoComponent } from "./users/user-info/user-info.component";
 import { UsersListComponent } from "./users/users-list/users-list.component";
 import { AuthGuard } from "./auth/auth.guard";
+import { PostsResolver } from "./posts/posts.resolver";
 
 export const appRouting: Routes = [
   { path: '', redirectTo: '/profile', pathMatch: 'full' },
@@ -38,7 +39,7 @@ export const appRouting: Routes = [
   },
   {
     path: 'posts', component: PostsComponent,
-    resolve: [ProfileResolver],
+    resolve: [ProfileResolver, PostsResolver],
     canActivate: [AuthGuard],
     data: { animation: '3' }
   },
