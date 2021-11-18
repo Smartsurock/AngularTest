@@ -9,6 +9,7 @@ import { AuthComponent } from "./auth/auth.component";
 import { ErrorPageComponent } from "./error-page/error-page.component";
 import { UserInfoComponent } from "./users/user-info/user-info.component";
 import { UsersListComponent } from "./users/users-list/users-list.component";
+import { AuthGuard } from "./auth/auth.guard";
 
 export const appRouting: Routes = [
   { path: '', redirectTo: '/profile', pathMatch: 'full' },
@@ -16,6 +17,7 @@ export const appRouting: Routes = [
   {
     path: 'profile', component: ProfileComponent,
     resolve: [ProfileResolver],
+    canActivate: [AuthGuard],
     children: [
       {
         path: 'edit', component: ProfileEditComponent,
@@ -27,6 +29,7 @@ export const appRouting: Routes = [
   {
     path: 'users', component: UsersComponent,
     resolve: [ProfileResolver],
+    canActivate: [AuthGuard],
     data: { animation: '2' },
     children: [
       { path: '', component: UsersListComponent, data: { animation: '7' }, },
@@ -36,6 +39,7 @@ export const appRouting: Routes = [
   {
     path: 'posts', component: PostsComponent,
     resolve: [ProfileResolver],
+    canActivate: [AuthGuard],
     data: { animation: '3' }
   },
   { path: 'error', component: ErrorPageComponent, data: { animation: '5' } },

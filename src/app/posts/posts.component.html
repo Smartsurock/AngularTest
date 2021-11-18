@@ -1,5 +1,8 @@
 <div class="container">
   <app-post [@add]="anim" *ngFor="let post of posts; let i = index" [post]="post"></app-post>
+  <!-- <div style="border: 1px solid #000;" [@add] *ngFor="let post of posts; let i = index">
+    {{post}}
+  </div> -->
 </div>
 <div class="form-box">
   <form [formGroup]="postForm" (ngSubmit)="onSubmit()" class="form">

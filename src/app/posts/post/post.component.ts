@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { animate, state, style, transition, trigger } from "@angular/animations";
+import { animate, style, transition, trigger } from "@angular/animations";
 import { Post } from '../post.model';
 
 @Component({
@@ -8,20 +8,20 @@ import { Post } from '../post.model';
   styleUrls: ['./post.component.scss'],
   animations: [
     trigger('add', [
-      state('anim', style({
-        opacity: 1,
-        transform: 'translateY(50px)',
-      })),
       transition('void => *', [
-        animate(2500, style({
+        style({
+          opacity: 0,
+          transform: 'translateY(30px)',
+        }),
+        animate('500ms ease-in', style({
           opacity: 1,
           transform: 'translateY(0px)',
         }))
       ]),
       transition('* => void', [
-        animate(2500, style({
+        animate('500ms ease-in', style({
           opacity: 0,
-          transform: 'translateY(20px)',
+          transform: 'translateY(30px)',
         }))
       ]),
     ]),

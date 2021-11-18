@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
+import { map, take } from 'rxjs/operators';
 import * as ProfileActions from '../profile/profile-store/profile.actions';
 import { Profile } from '../profile/profile.model';
 import * as fromAppReducer from '../store/app.reducer';
@@ -66,12 +67,12 @@ export class AuthComponent implements OnInit, OnDestroy {
     if (this.authForm.invalid) return;
     this.store.dispatch(new AuthActions.SignUpStart(this.authFormValue()));
 
-    const newProfile = new Profile(this.userId, '', '', '', '', '', '', '', '', '', '', '', '', '');
-    newProfile.privateMail = this.authForm.value.mail;
-    newProfile.imageUrl = 'https://cdn-0.imagensemoldes.com.br/wp-content/uploads/2020/03/Lilo-Stitch-PNG-15-1419x1536.png';
+    // const newProfile = new Profile(this.userId, '', '', '', '', '', '', '', '', '', '', '', '', '');
+    // newProfile.privateMail = this.authForm.value.mail;
+    // newProfile.imageUrl = 'https://cdn-0.imagensemoldes.com.br/wp-content/uploads/2020/03/Lilo-Stitch-PNG-15-1419x1536.png';
 
-    this.store.dispatch(new ProfileActions.AddProfile(newProfile));
-    this.store.dispatch(new ProfileActions.SaveProfiles());
+    // this.store.dispatch(new ProfileActions.AddProfile(newProfile));
+    // this.store.dispatch(new ProfileActions.SaveProfiles());
 
     this.authForm.reset();
   }
