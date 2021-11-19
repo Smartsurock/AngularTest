@@ -9,9 +9,16 @@
   height: 65px;
   line-height: 65px;
   padding: 0px 30px;
-  background-color: rgb(115, 176, 180);
   margin: 0px 0px 10px 0px;
   border-radius: 2px;
+  background: linear-gradient(
+    to bottom,
+    rgba(240, 183, 161, 1) 0%,
+    rgba(240, 183, 161, 1) 15%,
+    rgba(255, 255, 255, 1) 41%,
+    rgba(135, 33, 0, 1) 86%,
+    rgba(191, 110, 78, 1) 100%
+  );
 }
 .content {
   display: flex;

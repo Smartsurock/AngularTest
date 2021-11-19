@@ -29,7 +29,13 @@
   border-radius: 2px;
 }
 .logout {
-  background-color: rgb(57, 147, 153);
+  background: linear-gradient(
+    to bottom,
+    rgba(240, 183, 161, 1) 0%,
+    rgba(140, 51, 16, 1) 50%,
+    rgba(117, 34, 1, 1) 51%,
+    rgba(191, 110, 78, 1) 100%
+  );
   & span {
     color: rgba(255, 255, 255, 0.8);
   }

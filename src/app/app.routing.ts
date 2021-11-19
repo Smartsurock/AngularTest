@@ -17,7 +17,7 @@ export const appRouting: Routes = [
   { path: 'login', component: AuthComponent, data: { animation: '4' } },
   {
     path: 'profile', component: ProfileComponent,
-    resolve: [ProfileResolver],
+    resolve: [ProfileResolver, PostsResolver],
     canActivate: [AuthGuard],
     children: [
       {

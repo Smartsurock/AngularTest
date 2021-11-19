@@ -32,11 +32,18 @@
     flex: 1 1 auto;
   }
   & .button {
-    background-color: rgb(57, 147, 153);
+    background: linear-gradient(
+      to bottom,
+      rgba(240, 183, 161, 1) 0%,
+      rgba(140, 51, 16, 1) 50%,
+      rgba(117, 34, 1, 1) 51%,
+      rgba(191, 110, 78, 1) 100%
+    );
     border-radius: 2px;
     line-height: 140px;
     padding: 0px 10px;
     margin: 0px 0px 0px 5px;
+    transition: 0.3s;
     & button {
       background-color: transparent;
       color: rgba(255, 255, 255, 0.9);

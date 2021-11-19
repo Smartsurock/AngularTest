@@ -4,6 +4,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { Post } from 'src/app/posts/post.model';
+import * as PostsActions from 'src/app/posts/posts-store/posts.actions';
 import * as fromAppReducer from 'src/app/store/app.reducer';
 import * as ProfileActions from '../profile-store/profile.actions';
 import { Profile } from '../profile.model';
@@ -25,6 +27,10 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
 
   profileSub: Subscription;
   authSub: Subscription;
+  postsSub: Subscription;
+
+  posts: Post[];
+  postIndex
 
   ngOnInit() {
     this.authSub = this.store.select('auth').subscribe(state => {
@@ -40,17 +46,19 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
       this.profile = state.profiles[this.index];
     });
 
-
     this.initForm();
   }
 
   ngOnDestroy() {
     this.store.dispatch(new ProfileActions.EditMode(false));
-    if (this.profileSub) {
-      this.profileSub.unsubscribe();
-    }
-    if (this.authSub) {
-      this.authSub.unsubscribe();
+    this.unsubscriber(this.profileSub);
+    this.unsubscriber(this.authSub);
+    this.unsubscriber(this.postsSub);
+  }
+
+  unsubscriber(subscribe: Subscription) {
+    if (subscribe) {
+      subscribe.unsubscribe();
     }
   }
 
@@ -61,8 +69,27 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
 
     this.store.dispatch(new ProfileActions.EditProfile(
       { newUser: newUser, index: this.index }
-    ))
+    ));
     this.store.dispatch(new ProfileActions.SaveProfiles());
+
+    //Updating posts =========
+    this.postsSub = this.store.select('posts').subscribe(state => {
+      let posts = state.posts.filter(post => {
+        return post.userEmail === this.userMail;
+      });
+      this.posts = JSON.parse(JSON.stringify(posts));
+    });
+
+    this.posts.forEach(post => {
+      post.imageUrl = this.profileForm.value.imageUrl;
+      post.name = this.profileForm.value.name;
+    });
+
+    this.store.dispatch(new PostsActions.UpdatePosts({
+      updatedPosts: this.posts, email: this.userMail
+    }));
+    //=========================
+
     this.onCancel();
   }
 
@@ -73,23 +100,17 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
 
   initForm() {
     this.profileForm = new FormGroup({
-      imageUrl: new FormControl(this.profile.imageUrl),
       position: new FormControl(this.profile.position, [Validators.required]),
+      name: new FormControl(this.profile.name, [Validators.required]),
+      phone: new FormControl(this.profile.phone, [Validators.required]),
+      email: new FormControl(this.profile.email, [Validators.required]),
+      imageUrl: new FormControl(this.profile.imageUrl),
       status: new FormControl(this.profile.status),
       employment: new FormControl(this.profile.employment),
       payment: new FormControl(this.profile.payment),
       wishcity: new FormControl(this.profile.wishcity),
-      name: new FormControl(this.profile.name,
-        // [Validators.required]
-      ),
       birthday: new FormControl(this.profile.birthday),
       city: new FormControl(this.profile.city),
-      phone: new FormControl(this.profile.phone,
-        // [Validators.required]
-      ),
-      email: new FormControl(this.profile.email,
-        // [Validators.required]
-      ),
       social: new FormControl(this.profile.social),
     });
   }
