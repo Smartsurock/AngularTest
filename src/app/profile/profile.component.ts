@@ -1,11 +1,12 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Params, Router, RouterOutlet } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import * as fromAppReducer from '../store/app.reducer';
 import * as ProfileActions from './profile-store/profile.actions';
 import { profileAnimation } from './profile.animation';
-import { Profile } from './profile.model';
+import { Profile } from './profile-model/profile.model';
 
 @Component({
   selector: 'app-profile',
@@ -25,13 +26,20 @@ export class ProfileComponent implements OnInit, OnDestroy {
   profile: Profile;
   userMail: string;
   edit: boolean;
-  id: number;
+  userId: number;
+  userIndex: number;
+
+  skills: boolean = false;
+  experience: boolean = false;
+
+  skillsForm: FormGroup;
+  experienceForm: FormGroup;
 
   ngOnInit() {
     this.routeSub = this.route.params.subscribe((params: Params) => {
       this.edit = params['id'] === undefined || null;
       if (!this.edit) {
-        this.id = params['id'];
+        this.userId = params['id'];
       }
     });
 
@@ -44,14 +52,14 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
       this.profileSub = this.store.select('profile').subscribe(state => {
         this.editing = state.editing;
-        let index = state.profiles.findIndex(profile => {
+        this.userIndex = state.profiles.findIndex(profile => {
           return profile.privateMail === this.userMail;
         });
-        this.profile = state.profiles[index];
+        this.profile = state.profiles[this.userIndex];
       });
     } else {
       this.profileSub = this.store.select('profile').subscribe(state => {
-        this.profile = state.profiles[this.id];
+        this.profile = state.profiles[this.userId];
       });
     }
   }
@@ -76,5 +84,28 @@ export class ProfileComponent implements OnInit, OnDestroy {
   routeAnimation(outlet: RouterOutlet) {
     return outlet && outlet.activatedRouteData
       && outlet.activatedRouteData['animation'];
+  }
+
+  onChangeSkills() {
+    this.skills = true;
+    this.skillsForm = new FormGroup({
+      skills: new FormControl(null),
+    });
+  }
+
+  onSaveSkills() {
+
+  }
+
+  onCancelSkills() {
+    this.skills = false;
+  }
+
+  onAddExperience() {
+
+  }
+
+  onChangeExperience() {
+
   }
 }

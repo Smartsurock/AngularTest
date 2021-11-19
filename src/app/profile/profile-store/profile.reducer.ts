@@ -1,4 +1,4 @@
-import { Profile } from "../profile.model";
+import { Profile } from "../profile-model/profile.model";
 import * as ProfileActions from "./profile.actions";
 
 export interface State {

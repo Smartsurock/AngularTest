@@ -7,7 +7,6 @@ export const EDIT_POST = 'EDIT_POST';
 export const SAVE_POSTS = 'SAVE_POSTS';
 export const GET_POSTS = 'GET_POSTS';
 export const SET_POSTS = 'SET_POSTS';
-export const UPDATE_POSTS = 'UPDATE_POSTS';
 
 export class AddPost implements Action {
   readonly type = ADD_POST;
@@ -43,17 +42,10 @@ export class SavePosts implements Action {
   constructor(public payload: Post[]) { }
 }
 
-export class UpdatePosts implements Action {
-  readonly type = UPDATE_POSTS;
-
-  constructor(public payload: { updatedPosts: Post[], email: string }) { }
-}
-
 export type PostsActions =
   | EditPost
   | DeletePost
   | SavePosts
   | GetPosts
-  | UpdatePosts
   | SetPosts
   | AddPost;

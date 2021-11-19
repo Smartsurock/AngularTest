@@ -8,7 +8,7 @@ import { Post } from 'src/app/posts/post.model';
 import * as PostsActions from 'src/app/posts/posts-store/posts.actions';
 import * as fromAppReducer from 'src/app/store/app.reducer';
 import * as ProfileActions from '../profile-store/profile.actions';
-import { Profile } from '../profile.model';
+import { Profile } from '../profile-model/profile.model';
 
 @Component({
   selector: 'app-profile-edit',
@@ -30,7 +30,7 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
   postsSub: Subscription;
 
   posts: Post[];
-  postIndex
+  postsIndex = [];
 
   ngOnInit() {
     this.authSub = this.store.select('auth').subscribe(state => {
@@ -74,7 +74,10 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
 
     //Updating posts =========
     this.postsSub = this.store.select('posts').subscribe(state => {
-      let posts = state.posts.filter(post => {
+      let posts = state.posts.filter((post, index) => {
+        if (post.userEmail === this.userMail) {
+          this.postsIndex.push(index);
+        }
         return post.userEmail === this.userMail;
       });
       this.posts = JSON.parse(JSON.stringify(posts));
@@ -83,11 +86,11 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
     this.posts.forEach(post => {
       post.imageUrl = this.profileForm.value.imageUrl;
       post.name = this.profileForm.value.name;
+      let index = this.postsIndex.shift();
+      setTimeout(() => {
+        this.store.dispatch(new PostsActions.EditPost({ index, newPost: post }))
+      }, 100)
     });
-
-    this.store.dispatch(new PostsActions.UpdatePosts({
-      updatedPosts: this.posts, email: this.userMail
-    }));
     //=========================
 
     this.onCancel();

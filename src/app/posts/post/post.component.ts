@@ -51,7 +51,7 @@ export class PostComponent implements OnInit, OnDestroy {
   @ViewChild('textarea') textarea: ElementRef;
 
   ngOnInit() {
-    this.store.select('auth').subscribe(state => {
+    this.authSub = this.store.select('auth').subscribe(state => {
       if (state.user) {
         this.canEdit = state.user.email === this.post.userEmail;
       }
@@ -60,6 +60,7 @@ export class PostComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.unsubscriber(this.profileSub);
+    this.unsubscriber(this.authSub);
   }
 
   unsubscriber(subscription: Subscription) {

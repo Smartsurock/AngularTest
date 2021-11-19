@@ -34,7 +34,7 @@ export class PostsEffects {
   @Effect({ dispatch: false })
   savePosts = this.actions.pipe(
     ofType(PostActions.ADD_POST, PostActions.DELETE_POST,
-      PostActions.EDIT_POST, PostActions.UPDATE_POSTS),
+      PostActions.EDIT_POST),
     withLatestFrom(this.store.select('posts')),
     switchMap(([action, state]) => {
       return this.http.put<Post[]>('https://profile-877f9-default-rtdb.europe-west1.firebasedatabase.app/posts.json', state.posts);

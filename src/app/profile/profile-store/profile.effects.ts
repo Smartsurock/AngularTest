@@ -4,7 +4,7 @@ import { map, switchMap, withLatestFrom } from "rxjs/operators";
 import { HttpClient } from "@angular/common/http";
 import * as fromAppReducer from "src/app/store/app.reducer";
 import * as ProfileActions from "./profile.actions";
-import { Profile } from "../profile.model";
+import { Profile } from "../profile-model/profile.model";
 import { Store } from "@ngrx/store";
 
 @Injectable()

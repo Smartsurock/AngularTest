@@ -6,8 +6,8 @@
     <p>{{post.text}}</p>
     <form *ngIf="edit" [formGroup]="editForm" class="form">
       <textarea #textarea class="edit" formControlName="edit" name="edit" resize="false"></textarea>
-      <button type="button" class="save-btn" (click)="onSaveBtn()">Save</button>
-      <button type="button" class="cancel-btn" (click)="onCancelBtn()">Cancel</button>
+      <button type="button" class="button save-btn" (click)="onSaveBtn()">Save</button>
+      <button type="button" class="button cancel-btn" (click)="onCancelBtn()">Cancel</button>
     </form>
   </div>
   <div *ngIf="!edit && canEdit" class="buttons">

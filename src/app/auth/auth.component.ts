@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 import * as ProfileActions from '../profile/profile-store/profile.actions';
-import { Profile } from '../profile/profile.model';
+import { Profile } from '../profile/profile-model/profile.model';
 import * as fromAppReducer from '../store/app.reducer';
 import * as AuthActions from './auth-store/auth.actions';
 

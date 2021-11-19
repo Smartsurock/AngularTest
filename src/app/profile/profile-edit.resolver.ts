@@ -7,7 +7,7 @@ import * as ProfileActions from "./profile-store/profile.actions";
 import { of } from "rxjs";
 
 @Injectable({ providedIn: 'root' })
-export class EditResolver implements Resolve<any> {
+export class ProfileEditResolver implements Resolve<any> {
   constructor(private store: Store<fromAppReducer.AppState>) { }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {

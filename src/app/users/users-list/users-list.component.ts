@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Profile } from 'src/app/profile/profile.model';
+import { Profile } from 'src/app/profile/profile-model/profile.model';
 import * as fromAppReducer from '../../store/app.reducer';
 
 @Component({

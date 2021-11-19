@@ -23,17 +23,40 @@
       </div>
     </div>
   </div>
-  <!-- <div class="job">
-    <div class="skils">
-      <div class="main">Скилы</div>
-      <p>Коммерческого опыта - нет, знания - есть:</p>
-      <p>Html, css (scss), js (Vanilla/jQuery), БЭМ, gulp, адаптив, кроссбраузер.</p>
+  <div class="job">
+    <div class="skills">
+      <div class="main">Скилы <span class="change-btn" (click)="onChangeSkills()">Изменить</span></div>
+      <p *ngIf="!skills">Коммерческого опыта - нет, знания - есть:
+        Html, css (scss), js (Vanilla/jQuery), БЭМ, gulp, адаптив, кроссбраузер.</p>
     </div>
+    <form *ngIf="skills" [formGroup]="skillsForm" class="form">
+      <textarea #textarea class="skills-edit" formControlName="skills" name="skills" resize="false"></textarea>
+      <div class="buttons">
+        <button type="button" class="btn save-btn" (click)="onSaveSkills()">Save</button>
+        <button type="button" class="btn cancel-btn" (click)="onCancelSkills()">Cancel</button>
+      </div>
+    </form>
+  </div>
+  <div class="work">
     <div class="experience">
-      <div class="main">Опыт работы</div>
-      <strong>GlobalLogic</strong>
-      <p>Junior Front-End Developer</p>
-      <p>5 месяцев</p>
+      <div class="main">Опыт работы <span class="change-btn" (click)="onAddExperience()">Добавить</span></div>
+      <div (click)="onChangeExperience()">
+        <strong>GlobalLogic</strong> <span class="change-btn">Изменить</span>
+        <p>Junior Front-End Developer</p>
+        <p>5 месяцев</p>
+      </div>
     </div>
-  </div> -->
+    <form *ngIf="experience" [formGroup]="experienceForm" class="form">
+      <div class="exp-input"><input type="text" id="place" formControlName="place" name="place"
+          placeholder="Место работы"></div>
+      <div class="exp-input"><input type="text" id="position" formControlName="position" name="position" placeholder="Должность">
+      </div>
+      <div class="exp-input"><input type="text" id="period" formControlName="period" name="period" placeholder="Период">
+      </div>
+      <div class="buttons">
+        <button type="button" class="btn save-btn" (click)="onSaveExperience()">Save</button>
+        <button type="button" class="btn cancel-btn" (click)="onCancelExperience()">Cancel</button>
+      </div>
+    </form>
+  </div>
 </div>

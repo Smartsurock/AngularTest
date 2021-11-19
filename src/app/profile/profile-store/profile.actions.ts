@@ -1,5 +1,5 @@
 import { Action } from "@ngrx/store";
-import { Profile } from "../profile.model";
+import { Profile } from "../profile-model/profile.model";
 
 export const EDIT_MODE = 'EDIT_MODE';
 export const EDIT_PROFILE = 'EDIT_PROFILE';

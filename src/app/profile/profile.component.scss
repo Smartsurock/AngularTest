@@ -4,9 +4,13 @@
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.2) inset;
   position: relative;
   height: calc(100vh - 115px);
+  overflow: auto;
   & strong {
     display: inline-block;
     margin: 5px 0px;
+  }
+  &::-webkit-scrollbar {
+    display: none;
   }
 }
 .info {
@@ -69,12 +73,26 @@
     background-color: rgb(136, 136, 136);
   }
 }
-.job {
+.job,
+.work {
   margin: 0px 0px 0px 10px;
+  position: relative;
 }
 .main {
   font-size: 24px;
   font-weight: 600;
+}
+.change-btn {
+  font-size: 12px;
+  font-weight: 400;
+  font-style: italic;
+  display: inline-block;
+  margin: 0px 0px 0px 10px;
+  vertical-align: super;
+  cursor: pointer;
+  &:hover {
+    text-decoration: underline;
+  }
 }
 .link {
   color: #000;
@@ -85,9 +103,55 @@
     text-decoration: underline;
   }
 }
-.skils {
-  margin: 10px 0px 0px 0px;
-}
+.skills,
 .experience {
   margin: 10px 0px 0px 0px;
+}
+.skills-edit {
+  z-index: 10;
+  padding: 2px 7px;
+  font-size: 16px;
+  width: 100%;
+  height: 100%;
+  min-height: 100px;
+  top: 0;
+  left: 0;
+  background-color: rgb(255, 255, 255);
+  resize: none;
+  overflow: auto;
+  border-radius: 2px;
+}
+.form {
+  position: relative;
+}
+.buttons {
+  position: absolute;
+  right: 0;
+  top: -24px;
+}
+.btn {
+  font-size: 14px;
+  border-radius: 2px;
+  transition: 0.3s;
+  padding: 1px 4px;
+  background-color: transparent;
+}
+.save-btn {
+  &:hover {
+    box-shadow: 0 0 10px inset rgb(22, 133, 0);
+  }
+}
+.cancel-btn {
+  &:hover {
+    box-shadow: 0 0 10px inset rgb(184, 0, 0);
+  }
+}
+.exp-input {
+  & input {
+    width: 100%;
+    line-height: 26px;
+    padding: 0px 10px;
+    border-radius: 2px;
+  }
+  margin: 0px 0px 5px 0px;
 }

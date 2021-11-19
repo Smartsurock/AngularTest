@@ -21,11 +21,12 @@
     }
     & span:first-child {
       top: 0;
+      background: radial-gradient(ellipse at center, rgba(255, 255, 255, 1) 30%, rgba(0, 0, 0, 0.5) 100%);
       transform: rotateX(0deg) translate3d(0, 0, 18px);
     }
     & span:last-child {
       transform: rotateX(-90deg);
-      background-color: rgb(202, 202, 202);
+      background: radial-gradient(ellipse at center, rgba(255, 255, 255, 1) 0%, rgba(0, 0, 0, 1) 100%);
       bottom: -50%;
     }
     &.active {

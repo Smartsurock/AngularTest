@@ -14,6 +14,7 @@
     position: relative;
     transition: 0.5s;
     transform-style: preserve-3d;
+    background: linear-gradient(to top, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.1) 100%);
     & span {
       cursor: pointer;
       position: absolute;
@@ -27,20 +28,10 @@
 .login {
   position: absolute;
   border-radius: 2px;
-}
-.logout {
-  background: linear-gradient(
-    to bottom,
-    rgba(240, 183, 161, 1) 0%,
-    rgba(140, 51, 16, 1) 50%,
-    rgba(117, 34, 1, 1) 51%,
-    rgba(191, 110, 78, 1) 100%
-  );
+  background-color: #fff;
   & span {
     color: rgba(255, 255, 255, 0.8);
   }
-  position: absolute;
-  border-radius: 2px;
 }
 .user-name {
   margin-right: 0;

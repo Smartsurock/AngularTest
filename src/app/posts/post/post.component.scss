@@ -70,10 +70,9 @@
   overflow: auto;
   border-radius: 2px;
 }
-.save-btn {
+.button {
   position: absolute;
   right: 0;
-  top: 0;
   width: 10%;
   font-size: 15px;
   font-weight: 600;
@@ -82,22 +81,15 @@
   box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.2), 2px 2px 4px rgba(0, 0, 0, 0.2);
   border-radius: 2px;
   transition: 0.3s;
+}
+.save-btn {
+  top: 0;
   &:hover {
     box-shadow: 0 0 10px inset rgb(22, 133, 0);
   }
 }
 .cancel-btn {
-  position: absolute;
-  right: 0;
   bottom: 0;
-  width: 10%;
-  font-size: 15px;
-  font-weight: 600;
-  height: calc(50% - 2.5px);
-  z-index: 10;
-  box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.2), 2px 2px 4px rgba(0, 0, 0, 0.2);
-  border-radius: 2px;
-  transition: 0.3s;
   &:hover {
     box-shadow: 0 0 10px inset rgb(184, 0, 0);
   }

@@ -43,16 +43,6 @@ export function postsResucer(state: State = initialState, action: PostsActions.P
         }),
       }
 
-    case PostsActions.UPDATE_POSTS:
-      const upToDatePosts = state.posts.filter(post => {
-        return post.userEmail !== action.payload.email;
-      });
-      const updatedPosts = [...upToDatePosts, ...action.payload.updatedPosts];
-      return {
-        ...state,
-        posts: [...updatedPosts],
-      }
-
     default: return state;
   }
 }

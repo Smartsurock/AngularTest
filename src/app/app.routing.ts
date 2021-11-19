@@ -3,7 +3,7 @@ import { PostsComponent } from "./posts/posts.component";
 import { ProfileEditComponent } from "./profile/profile-edit/profile-edit.component";
 import { ProfileComponent } from "./profile/profile.component";
 import { UsersComponent } from "./users/users.component";
-import { EditResolver } from "./profile/edit.resolver";
+import { ProfileEditResolver } from "./profile/profile-edit.resolver";
 import { ProfileResolver } from "./profile/profile.resolver";
 import { AuthComponent } from "./auth/auth.component";
 import { ErrorPageComponent } from "./error-page/error-page.component";
@@ -22,7 +22,7 @@ export const appRouting: Routes = [
     children: [
       {
         path: 'edit', component: ProfileEditComponent,
-        resolve: [EditResolver],
+        resolve: [ProfileEditResolver],
         data: { animation: '1' },
       },
     ]
