@@ -3,7 +3,6 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { Post } from 'src/app/posts/post.model';
 import * as PostsActions from 'src/app/posts/posts-store/posts.actions';
 import * as fromAppReducer from 'src/app/store/app.reducer';
@@ -30,7 +29,10 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
   postsSub: Subscription;
 
   posts: Post[];
-  postsIndex = [];
+  postsIndex: number[] = [];
+
+  profileName: string;
+  profileImage: string;
 
   ngOnInit() {
     this.authSub = this.store.select('auth').subscribe(state => {
@@ -45,6 +47,9 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
       });
       this.profile = state.profiles[this.index];
     });
+
+    this.profileName = this.profile.name
+    this.profileImage = this.profile.imageUrl
 
     this.initForm();
   }
@@ -63,6 +68,8 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
+    if (this.profileForm.invalid) return;
+
     const newUser = this.profileForm.value;
     newUser.privateMail = this.userMail;
     newUser.id = this.index;
@@ -73,24 +80,26 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
     this.store.dispatch(new ProfileActions.SaveProfiles());
 
     //Updating posts =========
-    this.postsSub = this.store.select('posts').subscribe(state => {
-      let posts = state.posts.filter((post, index) => {
-        if (post.userEmail === this.userMail) {
-          this.postsIndex.push(index);
-        }
-        return post.userEmail === this.userMail;
+    if (this.profileName !== this.profileForm.value.name || this.profileImage !== this.profileForm.value.imageUrl) {
+      this.postsSub = this.store.select('posts').subscribe(state => {
+        let posts = state.posts.filter((post, index) => {
+          if (post.userEmail === this.userMail) {
+            this.postsIndex.push(index);
+          }
+          return post.userEmail === this.userMail;
+        });
+        this.posts = JSON.parse(JSON.stringify(posts));
       });
-      this.posts = JSON.parse(JSON.stringify(posts));
-    });
 
-    this.posts.forEach(post => {
-      post.imageUrl = this.profileForm.value.imageUrl;
-      post.name = this.profileForm.value.name;
-      let index = this.postsIndex.shift();
-      setTimeout(() => {
-        this.store.dispatch(new PostsActions.EditPost({ index, newPost: post }))
-      }, 100)
-    });
+      this.posts.forEach(post => {
+        post.imageUrl = this.profileForm.value.imageUrl;
+        post.name = this.profileForm.value.name;
+        let index = this.postsIndex.shift();
+        setTimeout(() => {
+          this.store.dispatch(new PostsActions.EditPost({ index, newPost: post }))
+        }, 10)
+      });
+    }
     //=========================
 
     this.onCancel();
@@ -105,8 +114,8 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
     this.profileForm = new FormGroup({
       position: new FormControl(this.profile.position, [Validators.required]),
       name: new FormControl(this.profile.name, [Validators.required]),
-      phone: new FormControl(this.profile.phone, [Validators.required]),
-      email: new FormControl(this.profile.email, [Validators.required]),
+      phone: new FormControl(this.profile.phone),
+      email: new FormControl(this.profile.email),
       imageUrl: new FormControl(this.profile.imageUrl),
       status: new FormControl(this.profile.status),
       employment: new FormControl(this.profile.employment),

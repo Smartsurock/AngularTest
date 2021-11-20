@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Params, Router, RouterOutlet } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -35,6 +35,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
   skillsForm: FormGroup;
   experienceForm: FormGroup;
 
+  newUserId: number;
+
   ngOnInit() {
     this.routeSub = this.route.params.subscribe((params: Params) => {
       this.edit = params['id'] === undefined || null;
@@ -48,20 +50,33 @@ export class ProfileComponent implements OnInit, OnDestroy {
         if (state.user) {
           this.userMail = state.user.email;
         }
-      })
-
+      });
       this.profileSub = this.store.select('profile').subscribe(state => {
         this.editing = state.editing;
         this.userIndex = state.profiles.findIndex(profile => {
           return profile.privateMail === this.userMail;
         });
-        this.profile = state.profiles[this.userIndex];
+        if (this.userIndex >= 0) {
+          this.profile = state.profiles[this.userIndex];
+        } else {
+          this.newUserId = state.profiles.length;
+          this.createNewProfile();
+        }
       });
     } else {
       this.profileSub = this.store.select('profile').subscribe(state => {
         this.profile = state.profiles[this.userId];
       });
     }
+  }
+
+  createNewProfile() {
+    const newProfile = new Profile(this.newUserId, '', '', '', '', '', '', '', '', '', '', '', '', '');
+    newProfile.privateMail = this.userMail;
+    newProfile.imageUrl = 'https://cdn-0.imagensemoldes.com.br/wp-content/uploads/2020/03/Lilo-Stitch-PNG-15-1419x1536.png';
+
+    this.store.dispatch(new ProfileActions.AddProfile(newProfile));
+    this.store.dispatch(new ProfileActions.SaveProfiles());
   }
 
   ngOnDestroy() {
@@ -106,6 +121,14 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   onChangeExperience() {
+
+  }
+
+  onSaveExperience() {
+
+  }
+
+  onCancelExperience() {
 
   }
 }

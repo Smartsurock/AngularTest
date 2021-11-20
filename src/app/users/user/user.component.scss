@@ -8,6 +8,9 @@
   cursor: pointer;
   color: #000;
   background-color: rgb(244, 244, 244);
+  &:hover {
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.1), 0 0 4px rgba(0, 0, 0, 0.3);
+  }
 }
 .row {
   display: flex;

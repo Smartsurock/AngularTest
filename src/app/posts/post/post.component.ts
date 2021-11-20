@@ -101,6 +101,10 @@ export class PostComponent implements OnInit, OnDestroy {
       });
     });
 
-    this.router.navigate([`/users/${userIndex}`]);
+    if (userIndex >= 0) {
+      this.router.navigate([`/users/${userIndex}`]);
+    } else {
+      this.router.navigate(['/error']);
+    }
   }
 }

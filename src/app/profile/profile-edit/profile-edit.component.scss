@@ -46,8 +46,13 @@
       box-shadow: 0 0 10px inset rgb(184, 0, 0);
     }
   }
-  &:last-child:hover {
-    box-shadow: 0 0 10px inset rgb(22, 133, 0);
+  &:last-child {
+    &:hover {
+      box-shadow: 0 0 10px inset rgb(22, 133, 0);
+    }
+    &:disabled:hover {
+      box-shadow: none;
+    }
   }
 }
 .flex-container {
