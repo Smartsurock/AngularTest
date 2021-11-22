@@ -43,7 +43,10 @@ export const appRouting: Routes = [
     canActivate: [AuthGuard],
     data: { animation: '3' }
   },
-  { path: 'error', component: ErrorPageComponent, data: { animation: '5' } },
+  {
+    path: 'error', component: ErrorPageComponent,
+    data: { animation: '5', message: "Такая страничка не существует или ещё не создана!" },
+  },
   {
     path: '**', redirectTo: '/error', pathMatch: 'full',
     data: { animation: '5' }

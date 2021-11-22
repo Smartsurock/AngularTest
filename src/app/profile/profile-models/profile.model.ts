@@ -1,3 +1,5 @@
+import { Job } from "./job.model";
+
 export class Profile {
   constructor(
     public id: number,
@@ -14,5 +16,7 @@ export class Profile {
     public email: string,
     public social: string,
     public privateMail: string,
+    public skills: string,
+    public jobs: Job[],
   ) { }
 }

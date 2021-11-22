@@ -23,11 +23,11 @@
       </div>
     </div>
   </div>
-  <div class="job">
+  <div class="work">
     <div class="skills">
-      <div class="main">Скилы <span *ngIf="edit" class="change-btn" (click)="onChangeSkills()">Изменить</span></div>
-      <p *ngIf="!skills">Коммерческого опыта - нет, знания - есть:
-        Html, css (scss), js (Vanilla/jQuery), БЭМ, gulp, адаптив, кроссбраузер.</p>
+      <div class="main">Скилы <span *ngIf="edit && !changeSkills" class="change-btn"
+          (click)="onChangeSkills()">Изменить</span></div>
+      <p *ngIf="!skills">{{profile.skills}}</p>
     </div>
     <form *ngIf="skills" [formGroup]="skillsForm" class="form">
       <textarea #textarea class="skills-edit" formControlName="skills" name="skills" resize="false"></textarea>
@@ -37,29 +37,47 @@
       </div>
     </form>
   </div>
-  <div class="work">
+  <div class="job">
     <div class="experience">
-      <div class="main">Опыт работы <span *ngIf="edit" class="change-btn" (click)="onAddExperience()">Добавить</span>
+      <div class="main">Опыт работы <span *ngIf="edit && formId !== -1" class="change-btn"
+          (click)="onAddExperience()">Добавить</span>
       </div>
-      <div>
-        <strong>GlobalLogic</strong> <span (click)="onChangeExperience()" *ngIf="edit"
-          class="change-btn">Изменить</span>
-        <p>Junior Front-End Developer</p>
-        <p>5 месяцев</p>
+      <form *ngIf="experience && formId === -1" [formGroup]="experienceForm" class="form">
+        <div class="exp-input"><input type="text" id="place" formControlName="place" name="place"
+            placeholder="Место работы"></div>
+        <div class="exp-input"><input type="text" id="position" formControlName="position" name="position"
+            placeholder="Должность">
+        </div>
+        <div class="exp-input"><input type="text" id="period" formControlName="period" name="period"
+            placeholder="Период">
+        </div>
+        <div class="buttons">
+          <button type="button" class="btn save-btn" (click)="onSaveExperience()">Save</button>
+          <button type="button" class="btn cancel-btn" (click)="onCancelExperience()">Cancel</button>
+        </div>
+      </form>
+      <div *ngFor="let job of profile.jobs; let i = index;" class="jobs">
+        <div *ngIf="formId !== i">
+          <strong> {{job.place}} </strong> <span (click)="onChangeExperience(i)" *ngIf="edit"
+            class="change-btn">Изменить</span>
+          <p> {{job.position}} </p>
+          <p> {{job.period}} </p>
+        </div>
+        <form *ngIf="experience && formId === i" [formGroup]="experienceForm" class="form">
+          <div class="exp-input"><input type="text" id="place" formControlName="place" name="place"
+              placeholder="Место работы"></div>
+          <div class="exp-input"><input type="text" id="position" formControlName="position" name="position"
+              placeholder="Должность">
+          </div>
+          <div class="exp-input"><input type="text" id="period" formControlName="period" name="period"
+              placeholder="Период">
+          </div>
+          <div class="buttons">
+            <button type="button" class="btn save-btn" (click)="onSaveExperience(i)">Save</button>
+            <button type="button" class="btn cancel-btn" (click)="onCancelExperience()">Cancel</button>
+          </div>
+        </form>
       </div>
     </div>
-    <form *ngIf="experience" [formGroup]="experienceForm" class="form">
-      <div class="exp-input"><input type="text" id="place" formControlName="place" name="place"
-          placeholder="Место работы"></div>
-      <div class="exp-input"><input type="text" id="position" formControlName="position" name="position"
-          placeholder="Должность">
-      </div>
-      <div class="exp-input"><input type="text" id="period" formControlName="period" name="period" placeholder="Период">
-      </div>
-      <div class="buttons">
-        <button type="button" class="btn save-btn" (click)="onSaveExperience()">Save</button>
-        <button type="button" class="btn cancel-btn" (click)="onCancelExperience()">Cancel</button>
-      </div>
-    </form>
   </div>
 </div>

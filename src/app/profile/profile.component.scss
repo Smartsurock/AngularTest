@@ -78,6 +78,21 @@
   margin: 0px 0px 0px 10px;
   position: relative;
 }
+.jobs {
+  margin: 0px 0px 0px 10px;
+  border-bottom: 1px solid rgb(155, 155, 155);
+  & span {
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.3s;
+  }
+  &:hover {
+    span {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+}
 .main {
   font-size: 24px;
   font-weight: 600;

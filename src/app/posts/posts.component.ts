@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
@@ -13,7 +13,7 @@ import { postsAnimation } from './posts.animation';
   styleUrls: ['./posts.component.scss'],
   animations: [postsAnimation]
 })
-export class PostsComponent implements OnInit, OnDestroy {
+export class PostsComponent implements OnInit, OnDestroy, AfterViewInit {
   constructor(private store: Store<fromAppReducer.AppState>) { }
 
   postForm: FormGroup;
@@ -26,6 +26,16 @@ export class PostsComponent implements OnInit, OnDestroy {
   profileSub: Subscription;
 
   anim = "anim";
+
+  @ViewChild('scrollContainer') scrollContainer: ElementRef;
+
+  ngAfterViewInit() {
+    this.scrollTop();
+  }
+
+  scrollTop() {
+    this.scrollContainer.nativeElement.scrollTop = this.scrollContainer.nativeElement.scrollHeight;
+  }
 
   ngOnInit() {
     this.postForm = new FormGroup({
@@ -68,9 +78,12 @@ export class PostsComponent implements OnInit, OnDestroy {
       new Post(this.userName, this.postForm.value.post, this.imageUrl, this.userEmail)
     ));
     this.postForm.reset();
+    setTimeout(() => {
+      this.scrollTop();
+    }, 0);
   }
 
-  onDelete(index) {
+  onDelete(index: number) {
     this.store.dispatch(new PostActions.DeletePost(index));
   }
 }

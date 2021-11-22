@@ -6,7 +6,8 @@ import { Subscription } from 'rxjs';
 import * as fromAppReducer from '../store/app.reducer';
 import * as ProfileActions from './profile-store/profile.actions';
 import { profileAnimation } from './profile.animation';
-import { Profile } from './profile-model/profile.model';
+import { Profile } from './profile-models/profile.model';
+import { Job } from './profile-models/job.model';
 
 @Component({
   selector: 'app-profile',
@@ -19,22 +20,25 @@ export class ProfileComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private store: Store<fromAppReducer.AppState>) { }
 
+  profile: Profile;
+
   editing: boolean;
   profileSub: Subscription;
   authSub: Subscription;
   routeSub: Subscription;
-  profile: Profile;
   userMail: string;
   edit: boolean;
   userId: number;
   userIndex: number;
 
-  skills: boolean = false;
-  experience: boolean = false;
-
   skillsForm: FormGroup;
   experienceForm: FormGroup;
+  skills: boolean = false;
+  experience: boolean = false;
+  addExperience: boolean = false;
+  changeSkills: boolean = false;
 
+  formId: number;
   newUserId: number;
 
   ngOnInit() {
@@ -71,12 +75,11 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   createNewProfile() {
-    const newProfile = new Profile(this.newUserId, '', '', '', '', '', '', '', '', '', '', '', '', '');
+    const newProfile = new Profile(this.newUserId, '', '', '', '', '', '', '', '', '', '', '', '', '', '', []);
     newProfile.privateMail = this.userMail;
     newProfile.imageUrl = 'https://cdn-0.imagensemoldes.com.br/wp-content/uploads/2020/03/Lilo-Stitch-PNG-15-1419x1536.png';
 
     this.store.dispatch(new ProfileActions.AddProfile(newProfile));
-    this.store.dispatch(new ProfileActions.SaveProfiles());
   }
 
   ngOnDestroy() {
@@ -103,32 +106,77 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   onChangeSkills() {
     this.skills = true;
+    this.changeSkills = true;
     this.skillsForm = new FormGroup({
-      skills: new FormControl(null),
+      skills: new FormControl(this.profile.skills),
     });
   }
 
   onSaveSkills() {
+    const updatedProfile = JSON.parse(JSON.stringify(this.profile));
 
+    updatedProfile.skills = this.skillsForm.value.skills;
+    this.store.dispatch(new ProfileActions.EditProfile({ newUser: updatedProfile, index: this.userIndex }));
+
+    this.onCancelSkills();
   }
 
   onCancelSkills() {
     this.skills = false;
+    this.changeSkills = false;
+  }
+
+  onChangeExperience(index: number) {
+    this.experience = true;
+    this.formId = index;
+
+    this.experienceForm = new FormGroup({
+      place: new FormControl(this.profile.jobs[index].place),
+      position: new FormControl(this.profile.jobs[index].position),
+      period: new FormControl(this.profile.jobs[index].period),
+    });
   }
 
   onAddExperience() {
+    this.experience = true;
+    this.formId = -1;
 
+    this.experienceForm = new FormGroup({
+      place: new FormControl(null),
+      position: new FormControl(null),
+      period: new FormControl(null),
+    });
   }
 
-  onChangeExperience() {
+  onSaveExperience(index: number) {
+    const updatedProfile = JSON.parse(JSON.stringify(this.profile));
+    if (this.formId === -1) {
+      const newJob = new Job(this.experienceForm.value.place, this.experienceForm.value.position, this.experienceForm.value.period);
 
-  }
+      updatedProfile.jobs.push(newJob);
+      this.store.dispatch(new ProfileActions.EditProfile({
+        newUser: updatedProfile, index: this.userIndex
+      }));
+    } else if (this.formId > -1) {
+      const updatJob = new Job(this.experienceForm.value.place, this.experienceForm.value.position, this.experienceForm.value.period);
+      const updatedJob = {
+        ...updatedProfile.jobs[index],
+        ...updatJob
+      }
+      const updatedJobs = [...updatedProfile.jobs];
+      updatedJobs[index] = updatedJob;
+      updatedProfile.jobs = updatedJobs;
 
-  onSaveExperience() {
+      this.store.dispatch(new ProfileActions.EditProfile({
+        newUser: updatedProfile, index: this.userIndex
+      }));
+    }
 
+    this.onCancelExperience();
   }
 
   onCancelExperience() {
-
+    this.experience = false;
+    this.formId = null;
   }
 }

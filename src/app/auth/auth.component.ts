@@ -50,12 +50,10 @@ export class AuthComponent implements OnInit, OnDestroy {
   onLogin() {
     if (this.authForm.invalid) return;
     this.store.dispatch(new AuthActions.LoginStart(this.authFormValue()));
-    this.authForm.reset();
   }
 
   onSignUp() {
     if (this.authForm.invalid) return;
     this.store.dispatch(new AuthActions.SignUpStart(this.authFormValue()));
-    this.authForm.reset();
   }
 }

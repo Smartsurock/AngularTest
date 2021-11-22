@@ -1,0 +1,24 @@
+.container {
+  line-height: 32px;
+  text-align: center;
+  margin: 30px 0px 0px 0px;
+  padding: 10px;
+  font-size: 18px;
+  color: rgb(190, 0, 0);
+}
+.relocation {
+  color: #000;
+  font-size: 16px;
+  & a {
+    display: inline-block;
+    width: 60px;
+    color: #000;
+    background-color: rgb(202, 202, 202);
+    border-radius: 2px;
+    margin: 10px 0px 0px 0px;
+    transition: 0.3s;
+    &:hover {
+      box-shadow: 0 0 10px inset rgb(22, 133, 0);
+    }
+  }
+}
