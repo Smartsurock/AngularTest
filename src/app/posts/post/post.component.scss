@@ -115,3 +115,14 @@
     box-shadow: 0 0 10px inset rgb(184, 0, 0);
   }
 }
+::-webkit-scrollbar {
+  width: 3px;
+  border-radius: 1px;
+}
+::-webkit-scrollbar-track {
+  background-color: #fff;
+}
+::-webkit-scrollbar-thumb {
+  border-radius: 1px;
+  background-color: rgb(136, 136, 136);
+}

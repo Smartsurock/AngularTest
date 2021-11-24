@@ -7,6 +7,7 @@ import * as fromAppReducer from 'src/app/store/app.reducer';
 import { Subscription } from 'rxjs';
 import { FormControl, FormGroup } from '@angular/forms';
 import * as PostsActions from '../posts-store/posts.actions';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-post',
@@ -17,19 +18,11 @@ import * as PostsActions from '../posts-store/posts.actions';
       transition('void => *', [
         style({
           opacity: 0,
-          transform: 'translateY(30px)',
         }),
-        animate('500ms ease-in', style({
+        animate(600, style({
           opacity: 1,
-          transform: 'translateY(0px)',
         }))
-      ]),
-      transition('* => void', [
-        animate('500ms ease-in', style({
-          opacity: 0,
-          transform: 'translateY(30px)',
-        }))
-      ]),
+      ])
     ]),
   ]
 })
@@ -43,7 +36,6 @@ export class PostComponent implements OnInit, OnDestroy {
 
   edit: boolean = false;
 
-  profileSub: Subscription;
   authSub: Subscription;
   editForm: FormGroup;
   canEdit: boolean;
@@ -59,7 +51,6 @@ export class PostComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.unsubscriber(this.profileSub);
     this.unsubscriber(this.authSub);
   }
 
@@ -103,7 +94,7 @@ export class PostComponent implements OnInit, OnDestroy {
 
   onUserClick() {
     let userIndex: number;
-    this.profileSub = this.store.select('profile').subscribe(state => {
+    this.store.select('profile').pipe(take(1)).subscribe(state => {
       userIndex = state.profiles.findIndex(profile => {
         return profile.privateMail === this.post.userEmail;
       });

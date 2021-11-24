@@ -5,13 +5,11 @@ import { Subscription } from 'rxjs';
 import * as fromAppReducer from '../store/app.reducer';
 import { Post } from './post.model';
 import * as PostActions from './posts-store/posts.actions';
-import { postsAnimation } from './posts.animation';
 
 @Component({
   selector: 'app-posts',
   templateUrl: './posts.component.html',
-  styleUrls: ['./posts.component.scss'],
-  animations: [postsAnimation]
+  styleUrls: ['./posts.component.scss']
 })
 export class PostsComponent implements OnInit, OnDestroy, AfterViewInit {
   constructor(private store: Store<fromAppReducer.AppState>) { }
@@ -25,24 +23,8 @@ export class PostsComponent implements OnInit, OnDestroy, AfterViewInit {
   authSub: Subscription;
   profileSub: Subscription;
 
-  anim = "anim";
-
   @ViewChild('scrollContainer') scrollContainer: ElementRef;
   @ViewChild('textarea') textarea: ElementRef;
-
-  ngAfterViewInit() {
-    this.scrollTop();
-    this.textarea.nativeElement.addEventListener('keydown',
-      (event: KeyboardEvent) => {
-        if (event.key === 'Enter') {
-          this.onSubmit();
-        }
-      });
-  }
-
-  scrollTop() {
-    this.scrollContainer.nativeElement.scrollTop = this.scrollContainer.nativeElement.scrollHeight;
-  }
 
   ngOnInit() {
     this.postForm = new FormGroup({
@@ -66,6 +48,20 @@ export class PostsComponent implements OnInit, OnDestroy, AfterViewInit {
       this.imageUrl = state.profiles[index].imageUrl;
       this.userName = state.profiles[index].name;
     });
+  }
+
+  ngAfterViewInit() {
+    this.scrollTop();
+    this.textarea.nativeElement.addEventListener('keydown',
+      (event: KeyboardEvent) => {
+        if (event.key === 'Enter') {
+          this.onSubmit();
+        }
+      });
+  }
+
+  scrollTop() {
+    this.scrollContainer.nativeElement.scrollTop = this.scrollContainer.nativeElement.scrollHeight;
   }
 
   ngOnDestroy() {

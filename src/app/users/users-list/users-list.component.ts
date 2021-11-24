@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { Subscription } from 'rxjs';
+import { take } from 'rxjs/operators';
 import { Profile } from 'src/app/profile/profile-models/profile.model';
 import * as fromAppReducer from '../../store/app.reducer';
 
@@ -14,10 +16,8 @@ export class UsersListComponent implements OnInit {
   profiles: Profile[];
 
   ngOnInit() {
-    this.store.select('profile')
-      .subscribe(state => {
-        this.profiles = state.profiles;
-      })
+    this.store.select('profile').pipe(take(1)).subscribe(state => {
+      this.profiles = state.profiles;
+    })
   }
-
 }
