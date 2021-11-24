@@ -38,8 +38,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
       }, 1000);
     });
 
-    this.burgerService.burgerIcon.subscribe((count: boolean) => {
-      this.burgerIcon = count;
+    this.burgerService.burgerIcon.subscribe((value: boolean) => {
+      this.burgerIcon = value;
     });
   }
 

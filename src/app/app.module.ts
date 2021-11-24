@@ -45,7 +45,7 @@ import { AuthInterceptor } from './auth/auth.interceptor';
     ErrorComponent,
     SpinnerComponent,
     UserInfoComponent,
-    UsersListComponent,
+    UsersListComponent
   ],
   imports: [
     BrowserModule,
