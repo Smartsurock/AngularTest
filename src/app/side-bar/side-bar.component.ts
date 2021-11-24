@@ -9,13 +9,10 @@ import { BurgerService } from '../header/burger.service';
 export class SideBarComponent implements OnInit {
   constructor(private burgerService: BurgerService) { }
 
-  @Output() burger = new EventEmitter<any>();
-
   ngOnInit() {
   }
 
   onLinkClick() {
-    this.burger.emit();
     setTimeout(() => {
       this.burgerService.toogleBurger(false);
     }, 200);

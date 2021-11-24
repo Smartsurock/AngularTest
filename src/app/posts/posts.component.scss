@@ -9,6 +9,9 @@
   &::-webkit-scrollbar {
     display: none;
   }
+  @media (max-width: 1024px) {
+    height: calc(100vh - 200px);
+  }
 }
 .form-box {
   position: absolute;

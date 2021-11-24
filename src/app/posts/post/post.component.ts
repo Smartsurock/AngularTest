@@ -87,7 +87,7 @@ export class PostComponent implements OnInit, OnDestroy {
 
   onSaveBtn() {
     let newPost = JSON.parse(JSON.stringify(this.post));
-    newPost.text = this.editForm.value.edit;
+    newPost.text = this.editForm.value.edit.replace(/\s{2,}/g, ' ');
     this.store.dispatch(new PostsActions.EditPost({
       index: this.index, newPost: newPost
     }));

@@ -3,7 +3,7 @@
     <router-outlet #outlet="outlet"></router-outlet>
     <div *ngIf="!editing" class="row">
       <div class="avatar">
-        <img src="{{profile.imageUrl}}" />
+        <div class="img" style="background-image: url({{profile.imageUrl}})"></div>
         <div *ngIf="edit" (click)="onEdit()" class="edit">Edit</div>
       </div>
       <div class="description">
@@ -19,7 +19,8 @@
         <p><span>Город:</span> {{profile.city}}</p>
         <p><span>Телефон:</span> {{profile.phone}}</p>
         <p><span>Почта:</span> {{profile.email}}</p>
-        <span>Соц. сеть:</span><a [ngClass]="profile.social ? 'link' : ''" href="{{profile.social}}" target="_blank">{{profile.social}}</a>
+        <span>Соц. сеть:</span><a [ngClass]="profile.social ? 'link' : ''" href="{{profile.social}}"
+          target="_blank">{{profile.social}}</a>
       </div>
     </div>
   </div>

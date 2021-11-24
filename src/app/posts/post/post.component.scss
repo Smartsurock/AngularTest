@@ -23,6 +23,9 @@
   background-position: 0px;
   background-size: cover;
   cursor: pointer;
+  @media (max-width: 400px) {
+    display: none;
+  }
 }
 .text {
   flex: 1 1 auto;
@@ -38,6 +41,10 @@
     &:hover {
       text-decoration: underline;
     }
+  }
+  overflow: hidden;
+  & P {
+    padding: 0px 0px 15px 0px;
   }
   position: relative;
 }
@@ -65,7 +72,7 @@
   z-index: 10;
   padding: 2px 7px;
   font-size: 16px;
-  width: calc(90% - 5px);
+  width: calc(100% - 60px);
   height: 100%;
   top: 0;
   left: 0;
@@ -73,11 +80,14 @@
   resize: none;
   overflow: auto;
   border-radius: 2px;
+  @media (max-width: 500px) {
+    width: calc(100% - 50px);
+  }
 }
 .button {
   position: absolute;
   right: 0;
-  width: 10%;
+  width: 60px;
   font-size: 15px;
   font-weight: 600;
   height: calc(50% - 2.5px);
@@ -85,6 +95,13 @@
   box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.2), 2px 2px 4px rgba(0, 0, 0, 0.2);
   border-radius: 2px;
   transition: 0.3s;
+  @media (max-width: 767px) {
+    font-weight: 500;
+    font-size: 14px;
+  }
+  @media (max-width: 500px) {
+    width: 50px;
+  }
 }
 .save-btn {
   top: 0;

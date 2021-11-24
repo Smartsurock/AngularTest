@@ -93,9 +93,9 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.store.dispatch(new ProfileActions.EditMode(true));
   }
 
-  unsubscriber(subscribe: Subscription) {
-    if (subscribe) {
-      subscribe.unsubscribe();
+  unsubscriber(subscription: Subscription) {
+    if (subscription) {
+      subscription.unsubscribe();
     }
   }
 

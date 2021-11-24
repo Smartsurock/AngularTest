@@ -12,9 +12,12 @@
   &::-webkit-scrollbar {
     display: none;
   }
+  @media (max-width: 1024px) {
+    height: calc(100vh - 95px);
+  }
 }
 .info {
-  height: 400px;
+  min-height: 400px;
 }
 .row {
   display: flex;
@@ -24,20 +27,36 @@
       visibility: visible;
     }
   }
+  @media (max-width: 600px) {
+    display: block;
+  }
 }
 .avatar {
   flex: 0 0 200px;
-  position: relative;
   transition: 0.3s;
-  & img {
-    position: absolute;
+  position: relative;
+  @media (max-width: 600px) {
+    height: 300px;
+    margin: 0px 0px 10px 0px;
+  }
+  & .img {
     width: 100%;
-    top: 0;
-    left: 0;
+    height: 100%;
+    position: relative;
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    background-size: contain;
+    @media (max-width: 600px) {
+      background-repeat: no-repeat;
+      background-position: 50% 0;
+      background-size: contain;
+    }
   }
 }
 .edit {
   position: absolute;
+  top: 0;
+  left: 0;
   margin: 5px;
   padding: 0px 5px;
   border-radius: 2px;
@@ -61,7 +80,7 @@
 .description {
   flex: auto;
   margin: 0px 0px 0px 15px;
-  height: 400px;
+  min-height: 400px;
   overflow: auto;
   & span {
     text-decoration: underline;
@@ -75,6 +94,10 @@
   }
   &::-webkit-scrollbar-thumb {
     background-color: rgb(136, 136, 136);
+  }
+  @media (max-width: 600px) {
+    flex: 1 1 100%;
+    margin: 0;
   }
 }
 .job,
@@ -175,4 +198,7 @@
     border-radius: 2px;
   }
   margin: 0px 0px 5px 0px;
+}
+::-webkit-scrollbar:horizontal {
+  display: none;
 }

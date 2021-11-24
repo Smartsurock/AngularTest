@@ -5,9 +5,9 @@ import { Subject } from "rxjs";
 export class BurgerService {
   constructor() { }
 
-  public burgerIcon = new Subject<boolean>();
+  public burger = new Subject<boolean>();
 
   toogleBurger(value: boolean) {
-    this.burgerIcon.next(value);
+    this.burger.next(value);
   }
 }

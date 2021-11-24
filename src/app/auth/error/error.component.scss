@@ -7,24 +7,28 @@
   background-color: rgba(0, 0, 0, 0.3);
   & .error {
     width: 80%;
-    height: 40%;
+    min-height: 40%;
     background-color: rgba(255, 255, 255, 0.9);
     margin: 40px auto 0;
     border-radius: 3px;
     padding: 20px;
     display: flex;
     flex-direction: column;
+    @media (max-width: 600px) {
+      width: 96%;
+    }
     & h3 {
-      margin: 50px 0px 0px 0px;
       text-align: center;
       color: rgb(190, 0, 0);
       line-height: 30px;
       font-size: 28px;
       height: 100%;
+      flex: 1 1 auto;
     }
     & button {
       align-self: flex-end;
       padding: 5px 10px;
+      margin: 10px 0px 0px 0px;
       background-color: rgb(190, 0, 0);
       border-radius: 2px;
       color: #fff;

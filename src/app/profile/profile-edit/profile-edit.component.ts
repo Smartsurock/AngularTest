@@ -61,9 +61,9 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
     this.unsubscriber(this.postsSub);
   }
 
-  unsubscriber(subscribe: Subscription) {
-    if (subscribe) {
-      subscribe.unsubscribe();
+  unsubscriber(subscription: Subscription) {
+    if (subscription) {
+      subscription.unsubscribe();
     }
   }
 

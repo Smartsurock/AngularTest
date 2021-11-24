@@ -17,12 +17,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private burgerService: BurgerService) { }
 
   isLoged = false;
-  private authSub: Subscription;
+  authSub: Subscription;
+  burgerSub: Subscription;
   time: Date;
   timer: Observable<number> = null;
-
-  @Output() burger = new EventEmitter<any>();
-  burgerIcon: boolean = false;
+  burger: boolean = false;
 
   ngOnInit() {
     this.authSub = this.store.select('auth').subscribe(state => {
@@ -38,23 +37,28 @@ export class HeaderComponent implements OnInit, OnDestroy {
       }, 1000);
     });
 
-    this.burgerService.burgerIcon.subscribe((value: boolean) => {
-      this.burgerIcon = value;
+    this.burgerSub = this.burgerService.burger.subscribe((value: boolean) => {
+      this.burger = value;
     });
   }
 
   ngOnDestroy() {
-    if (this.authSub) {
-      this.authSub.unsubscribe();
+    this.unsubscriber(this.authSub);
+    this.unsubscriber(this.burgerSub);
+  }
+
+  unsubscriber(subscription: Subscription) {
+    if (subscription) {
+      subscription.unsubscribe();
     }
   }
 
   onLogout() {
     this.store.dispatch(new AuthActions.Logout());
+    this.burgerService.toogleBurger(false);
   }
 
   onBurgerMenu() {
-    this.burger.emit();
-    this.burgerService.toogleBurger(!this.burgerIcon);
+    this.burgerService.toogleBurger(!this.burger);
   }
 }

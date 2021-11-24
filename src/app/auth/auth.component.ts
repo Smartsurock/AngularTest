@@ -35,9 +35,9 @@ export class AuthComponent implements OnInit, OnDestroy {
     this.unsubscriber(this.authSub);
   }
 
-  unsubscriber(subscribe: Subscription) {
-    if (subscribe) {
-      subscribe.unsubscribe();
+  unsubscriber(subscription: Subscription) {
+    if (subscription) {
+      subscription.unsubscribe();
     }
   }
 
