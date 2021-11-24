@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { BurgerService } from '../header/burger.service';
 
 @Component({
   selector: 'app-side-bar',
@@ -6,9 +7,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./side-bar.component.scss']
 })
 export class SideBarComponent implements OnInit {
-  constructor() { }
+  constructor(private burgerService: BurgerService) { }
+
+  @Output() burger = new EventEmitter<any>();
 
   ngOnInit() {
   }
 
+  onLinkClick() {
+    this.burger.emit();
+    setTimeout(() => {
+      this.burgerService.toogleBurger(false);
+    }, 200);
+  }
 }

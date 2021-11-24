@@ -1,10 +1,10 @@
 <div class="container">
   <div class="header">
-    <app-header></app-header>
+    <app-header (burger)="openBurgerMenu()"></app-header>
   </div>
   <div class="content">
-    <div class="side-bar">
-      <app-side-bar></app-side-bar>
+    <div class="side-bar" [ngClass]="burger ? 'active' : ''">
+      <app-side-bar (burger)="closeBurgerMenu()"></app-side-bar>
     </div>
     <div [@route]="routeAnimation(outlet)" class="profile">
       <router-outlet #outlet="outlet"></router-outlet>

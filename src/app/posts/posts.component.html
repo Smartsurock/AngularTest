@@ -6,7 +6,7 @@
     {{post}}
   </div> -->
 </div>
-<div class="form-box">
+<div #textarea class="form-box">
   <form [formGroup]="postForm" (ngSubmit)="onSubmit()" class="form">
     <div class="message">
       <textarea formControlName="post" name="post" id="post" resize="false"></textarea>

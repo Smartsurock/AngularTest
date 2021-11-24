@@ -17,7 +17,7 @@ export class ProfileEffects {
   getProfiles = this.actions.pipe(
     ofType(ProfileActions.GET_PROFILES),
     switchMap(() => {
-      return this.http.get<Profile[]>('https://profile-877f9-default-rtdb.europe-west1.firebasedatabase.app/profile.json')
+      return this.http.get<Profile[]>('https://profile-877f9-default-rtdb.europe-west1.firebasedatabase.app/profiles.json')
     }),
     map(profiles => {
       if (profiles) {
@@ -41,7 +41,7 @@ export class ProfileEffects {
     ofType(ProfileActions.SAVE_PROFILES, ProfileActions.EDIT_PROFILE, ProfileActions.ADD_PROFILE),
     withLatestFrom(this.store.select('profile')),
     switchMap(([action, state]) => {
-      return this.http.put<Profile[]>('https://profile-877f9-default-rtdb.europe-west1.firebasedatabase.app/profile.json', state.profiles);
+      return this.http.put<Profile[]>('https://profile-877f9-default-rtdb.europe-west1.firebasedatabase.app/profiles.json', state.profiles);
     })
   );
 }

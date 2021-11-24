@@ -74,7 +74,15 @@ export class PostComponent implements OnInit, OnDestroy {
     this.editForm = new FormGroup({
       edit: new FormControl(this.post.text),
     });
-    setTimeout(() => { this.textarea.nativeElement.focus() }, 300);
+    setTimeout(() => {
+      this.textarea.nativeElement.focus()
+      this.textarea.nativeElement.addEventListener('keydown',
+        (event: KeyboardEvent) => {
+          if (event.key === 'Enter') {
+            this.onSaveBtn();
+          }
+        });
+    }, 100);
   }
 
   onSaveBtn() {

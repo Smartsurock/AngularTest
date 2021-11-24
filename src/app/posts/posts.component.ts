@@ -28,9 +28,16 @@ export class PostsComponent implements OnInit, OnDestroy, AfterViewInit {
   anim = "anim";
 
   @ViewChild('scrollContainer') scrollContainer: ElementRef;
+  @ViewChild('textarea') textarea: ElementRef;
 
   ngAfterViewInit() {
     this.scrollTop();
+    this.textarea.nativeElement.addEventListener('keydown',
+      (event: KeyboardEvent) => {
+        if (event.key === 'Enter') {
+          this.onSubmit();
+        }
+      });
   }
 
   scrollTop() {
@@ -75,7 +82,7 @@ export class PostsComponent implements OnInit, OnDestroy, AfterViewInit {
 
   onSubmit() {
     this.store.dispatch(new PostActions.AddPost(
-      new Post(this.userName, this.postForm.value.post, this.imageUrl, this.userEmail)
+      new Post(this.userName, this.postForm.value.post.trim(), this.imageUrl, this.userEmail)
     ));
     this.postForm.reset();
     setTimeout(() => {

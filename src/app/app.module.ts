@@ -17,7 +17,7 @@ import * as fromAppReducer from './store/app.reducer';
 import { ReactiveFormsModule } from '@angular/forms';
 import { EffectsModule } from '@ngrx/effects';
 import { ProfileEffects } from './profile/profile-store/profile.effects';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserComponent } from './users/user/user.component';
 import { AuthComponent } from './auth/auth.component';
 import { AuthEffects } from './auth/auth-store/auth.effects';
@@ -27,6 +27,7 @@ import { SpinnerComponent } from './auth/spinner/spinner.component';
 import { UserInfoComponent } from './users/user-info/user-info.component';
 import { UsersListComponent } from './users/users-list/users-list.component';
 import { PostsEffects } from './posts/posts-store/posts.effects';
+import { AuthInterceptor } from './auth/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -55,7 +56,9 @@ import { PostsEffects } from './posts/posts-store/posts.effects';
     EffectsModule.forRoot([AuthEffects, ProfileEffects, PostsEffects]),
     ReactiveFormsModule,
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

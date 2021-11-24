@@ -22,6 +22,7 @@ export function authReducer(
       return {
         ...state,
         user: user,
+        error: null,
         loading: false,
       }
 
@@ -29,6 +30,7 @@ export function authReducer(
     case AuthActions.SIGNUP_START:
       return {
         ...state,
+        error: null,
         loading: true,
       }
 

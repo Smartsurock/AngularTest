@@ -175,6 +175,14 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.onCancelExperience();
   }
 
+  onDeleteExperience(index: number) {
+    const updatedProfile = JSON.parse(JSON.stringify(this.profile));
+    updatedProfile.jobs.splice(index, 1);
+    this.store.dispatch(new ProfileActions.EditProfile({
+      newUser: updatedProfile, index: this.userIndex
+    }));
+  }
+
   onCancelExperience() {
     this.experience = false;
     this.formId = null;

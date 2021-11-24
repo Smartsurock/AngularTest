@@ -19,7 +19,7 @@
         <p><span>Город:</span> {{profile.city}}</p>
         <p><span>Телефон:</span> {{profile.phone}}</p>
         <p><span>Почта:</span> {{profile.email}}</p>
-        <span>Соц. сеть:</span><a class="link" href="{{profile.social}}" target="_blank">{{profile.social}}</a>
+        <span>Соц. сеть:</span><a [ngClass]="profile.social ? 'link' : ''" href="{{profile.social}}" target="_blank">{{profile.social}}</a>
       </div>
     </div>
   </div>
@@ -58,8 +58,9 @@
       </form>
       <div *ngFor="let job of profile.jobs; let i = index;" class="jobs">
         <div *ngIf="formId !== i">
-          <strong> {{job.place}} </strong> <span (click)="onChangeExperience(i)" *ngIf="edit"
-            class="change-btn">Изменить</span>
+          <strong> {{job.place}} </strong>
+          <span (click)="onChangeExperience(i)" *ngIf="edit" class="change-btn">Изменить</span>
+          <span (click)="onDeleteExperience(i)" *ngIf="edit" class="change-btn">Удалить</span>
           <p> {{job.position}} </p>
           <p> {{job.period}} </p>
         </div>

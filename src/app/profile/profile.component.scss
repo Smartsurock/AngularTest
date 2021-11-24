@@ -53,6 +53,10 @@
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.5) inset;
     border: 1px solid #000;
   }
+  @media (max-width: 767px) {
+    visibility: visible;
+    opacity: 1;
+  }
 }
 .description {
   flex: auto;
@@ -79,7 +83,6 @@
   position: relative;
 }
 .jobs {
-  margin: 0px 0px 0px 10px;
   border-bottom: 1px solid rgb(155, 155, 155);
   & span {
     opacity: 0;
@@ -91,6 +94,9 @@
       opacity: 1;
       visibility: visible;
     }
+  }
+  & strong {
+    margin: 0;
   }
 }
 .main {

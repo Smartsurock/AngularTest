@@ -1,4 +1,10 @@
 <div class="menu">
+  <div class="icon-menu" *ngIf="isLoged" [@userName] [ngClass]="burgerIcon ? 'active' : ''" (click)="onBurgerMenu()">
+    <span></span><span></span><span></span>
+  </div>
+  <div *ngIf="isLoged" [@userName] class="user-name">
+    Активная сессия: <span>{{timer | async | date:"mm:ss"}}</span> <a>😱</a>
+  </div>
   <div *ngIf="!isLoged" [@Login] class="login">
     <a routerLink="/login" class="menu__link">
       <span>Login</span>
@@ -8,8 +14,5 @@
     <a (click)="onLogout()" class="menu__link">
       <span>Logout</span>
     </a>
-  </div>
-  <div *ngIf="isLoged" [@userName] class="user-name">
-    Активная сессия: <span>{{timer | async | date:"mm:ss"}}</span> <a>😱</a>
   </div>
 </div>
