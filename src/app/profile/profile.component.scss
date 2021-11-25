@@ -111,6 +111,10 @@
     opacity: 0;
     visibility: hidden;
     transition: 0.3s;
+    @media (max-width: 767px) {
+      opacity: 1;
+      visibility: visible;
+    }
   }
   &:hover {
     span {

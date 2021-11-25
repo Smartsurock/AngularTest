@@ -1,6 +1,5 @@
 <div class="container" #scrollContainer>
-  <app-post *ngFor="let post of posts; let i = index" [post]="post" [index]="i"
-    (delete)="onDelete($event)">
+  <app-post *ngFor="let post of posts; let i = index" [post]="post" [index]="i" (delete)="onDelete($event)">
   </app-post>
 </div>
 <div #textarea class="form-box">
@@ -9,7 +8,9 @@
       <textarea formControlName="post" name="post" id="post" resize="false"></textarea>
     </div>
     <div class="button">
-      <button [disabled]="postForm.invalid">Отправить</button>
+      <button [disabled]="postForm.invalid">
+        <span>Отправить</span><span>&#9658;</span>
+      </button>
     </div>
   </form>
 </div>
