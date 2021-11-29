@@ -1,0 +1,169 @@
+.back {
+  height: 25px;
+  line-height: 25px;
+  padding: 0px 0px 0px 15px;
+  transition: 0.3s;
+  cursor: pointer;
+  margin: 0px 0px 5px 0px;
+  border-radius: 2px;
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+}
+.container {
+  height: calc(100% - 135px);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2) inset;
+  overflow: auto;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  @media (max-width: 500px) {
+    height: calc(100% - 95px);
+  }
+}
+.content {
+  padding: 10px;
+  &-item {
+    display: flex;
+    padding: 10px;
+    margin: 0px 0px 3px 0px;
+    border-radius: 3px;
+  }
+  &-revers {
+    &.content-item {
+      background-color: rgba(0, 0, 0, 0.05);
+    }
+    .text {
+      order: 1;
+      text-align: right;
+      & p:first-child {
+        & i {
+          order: 1;
+          display: flex;
+          & span:first-child {
+            order: 2;
+            transform: scaleX(-1);
+          }
+          & span:last-child {
+            order: 1;
+          }
+        }
+        & span {
+          order: 2;
+        }
+      }
+    }
+    .image {
+      order: 2;
+      margin: 0px 0px 0px 10px;
+    }
+  }
+}
+.image {
+  flex: 0 0 50px;
+  width: 50px;
+  height: 50px;
+  background-position: 0;
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin: 0px 10px 0px 0px;
+  cursor: pointer;
+}
+.text {
+  flex: 1 1 auto;
+  & p:first-child {
+    font-weight: 700;
+    font-size: 12px;
+    margin: 0px 0px 5px 0px;
+    display: flex;
+    justify-content: space-between;
+    & i {
+      font-style: normal;
+      user-select: none;
+      & span {
+        padding: 0px 2px;
+        margin: 0px 2px;
+        cursor: pointer;
+        text-decoration: none;
+        transition: 0.3s;
+        border-radius: 2px;
+        &:hover {
+          background-color: rgba(0, 0, 0, 0.1);
+        }
+      }
+    }
+    & span {
+      cursor: pointer;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+  & p:last-child {
+    font-size: 15px;
+    line-height: 18px;
+    color: rgb(90, 90, 90);
+  }
+  padding: 0px 0px 5px 0px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+}
+.form-box {
+  position: absolute;
+  width: 100%;
+  height: 100px;
+  bottom: 0;
+  left: 0;
+  @media (max-width: 500px) {
+    height: 60px;
+  }
+}
+.form {
+  display: flex;
+  height: 100%;
+  & textarea {
+    resize: none;
+    height: 100%;
+    width: calc(100% - 5px);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2) inset;
+    padding: 10px 15px;
+    font-size: 16px;
+  }
+  & .message {
+    flex: 1 1 auto;
+  }
+  & .button {
+    background: linear-gradient(
+      rgba(0, 0, 0, 0.2) 0%,
+      rgba(0, 0, 0, 1) 40%,
+      rgba(0, 0, 0, 1) 60%,
+      rgba(0, 0, 0, 0.2) 100%
+    );
+    border-radius: 2px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0px 10px;
+    transition: 0.3s;
+    & button {
+      background-color: transparent;
+      color: rgba(255, 255, 255, 0.9);
+      width: 100%;
+      height: 100%;
+      font-size: 16px;
+      & span:last-child {
+        display: none;
+      }
+      @media (max-width: 500px) {
+        & span:first-child {
+          display: none;
+        }
+        & span:last-child {
+          display: inline-block;
+        }
+      }
+      &:disabled {
+        color: rgba(255, 255, 255, 0.6);
+      }
+    }
+  }
+}

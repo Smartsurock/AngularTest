@@ -98,7 +98,7 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
           this.store.dispatch(
             new PostsActions.EditPost({ index, newPost: post })
           )
-        }, 0)
+        }, 0);
       });
     }
     //=========================

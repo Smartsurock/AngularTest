@@ -22,6 +22,14 @@ import { take } from 'rxjs/operators';
         animate(600, style({
           opacity: 1,
         }))
+      ]),
+      transition('* => void', [
+        style({
+          opacity: 1,
+        }),
+        animate(600, style({
+          opacity: 0,
+        }))
       ])
     ]),
   ]

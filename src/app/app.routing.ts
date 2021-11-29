@@ -11,6 +11,10 @@ import { UserInfoComponent } from "./users/user-info/user-info.component";
 import { UsersListComponent } from "./users/users-list/users-list.component";
 import { AuthGuard } from "./auth/auth.guard";
 import { PostsResolver } from "./posts/posts.resolver";
+import { MessagesComponent } from "./messages/messages.component";
+import { MessageComponent } from "./messages/message/message.component";
+import { SelectFriendComponent } from "./messages/select-friend/select-friend.component";
+import { MessagesResolver } from "./messages/messages.resolver";
 
 export const appRouting: Routes = [
   { path: '', redirectTo: '/profile', pathMatch: 'full' },
@@ -28,13 +32,23 @@ export const appRouting: Routes = [
     ]
   },
   {
+    path: 'messages', component: MessagesComponent,
+    resolve: [ProfileResolver, MessagesResolver],
+    canActivate: [AuthGuard],
+    data: { animation: '8' },
+    children: [
+      { path: '', component: SelectFriendComponent, },
+      { path: ':id', component: MessageComponent, data: { animation: '10' }, }
+    ]
+  },
+  {
     path: 'users', component: UsersComponent,
     resolve: [ProfileResolver],
     canActivate: [AuthGuard],
     data: { animation: '2' },
     children: [
       { path: '', component: UsersListComponent, data: { animation: '7' }, },
-      { path: ':id', component: UserInfoComponent, data: { animation: '6' }, }
+      { path: ':id', component: UserInfoComponent, data: { animation: '6' }, },
     ]
   },
   {
@@ -45,7 +59,7 @@ export const appRouting: Routes = [
   },
   {
     path: 'error', component: ErrorPageComponent,
-    data: { animation: '5', message: "Такая страничка не существует или ещё не создана!" },
+    data: { animation: '9', message: "Такая страничка не существует или ещё не создана!" },
   },
   {
     path: '**', redirectTo: '/error', pathMatch: 'full',

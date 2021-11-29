@@ -49,12 +49,13 @@ export class ProfileComponent implements OnInit, OnDestroy {
       }
     });
 
+    this.authSub = this.store.select('auth').subscribe(state => {
+      if (state.user) {
+        this.userMail = state.user.email;
+      }
+    });
+
     if (this.edit) {
-      this.authSub = this.store.select('auth').subscribe(state => {
-        if (state.user) {
-          this.userMail = state.user.email;
-        }
-      });
       this.profileSub = this.store.select('profile').subscribe(state => {
         this.editing = state.editing;
         this.userIndex = state.profiles.findIndex(profile => {
@@ -186,5 +187,9 @@ export class ProfileComponent implements OnInit, OnDestroy {
   onCancelExperience() {
     this.experience = false;
     this.formId = null;
+  }
+
+  onSendMessage() {
+    this.router.navigate([`/messages/${this.userId}`]);
   }
 }

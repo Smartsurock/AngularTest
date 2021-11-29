@@ -2,7 +2,7 @@
   <div (click)="onUserClick()" class="image" style="background-image: url({{post.imageUrl}})">
   </div>
   <div class="text">
-    <a (click)="onUserClick()">{{post.name}}</a>
+    <a (click)="onUserClick()">{{post.name === '' ? 'Юзер, который решил что профиль можно не редактировать...' : post.name}}</a>
     <p>{{post.text}}</p>
     <form *ngIf="edit" [formGroup]="editForm" class="form">
       <textarea #textarea class="edit" formControlName="edit" name="edit" resize="false"></textarea>

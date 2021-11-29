@@ -1,0 +1,33 @@
+<div class="back" (click)="onEscape()">&#9668; Назад</div>
+<div class="container" #scrollContainer>
+  <div class="content">
+    <div class="content-item" [@add] [ngClass]="friendId === message.friendId ? 'content-revers' : ''"
+      *ngFor="let message of messages; let i = index">
+      <div (click)="onUserClick(friendId === message.friendId)" class="image"
+        style="background-image: url({{message.imageUrl}});">
+      </div>
+      <div class="text">
+        <p><span (click)="onUserClick(friendId === message.friendId)">
+            {{message.name === '' ? 'Юзер, который решил что профиль можно не редактировать...' : message.name}}
+          </span>
+          <i *ngIf="friendId === message.friendId">
+            <span (click)="onEditMessage(i)">&#9998;</span>
+            <span (click)="onDeleteMessage(i)">&#10006;</span></i>
+        </p>
+        <p>{{message.text}}</p>
+      </div>
+    </div>
+  </div>
+  <div class="form-box" #textarea>
+    <form [formGroup]="messageForm" (ngSubmit)="onSubmit()" class="form">
+      <div class="message">
+        <textarea formControlName="message" name="message" id="message" resize="false"></textarea>
+      </div>
+      <div class="button">
+        <button [disabled]="messageForm.invalid">
+          <span>Отправить</span><span>&#9658;</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

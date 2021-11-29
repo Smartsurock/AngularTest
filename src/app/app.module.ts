@@ -28,6 +28,10 @@ import { UserInfoComponent } from './users/user-info/user-info.component';
 import { UsersListComponent } from './users/users-list/users-list.component';
 import { PostsEffects } from './posts/posts-store/posts.effects';
 import { AuthInterceptor } from './auth/auth.interceptor';
+import { MessagesComponent } from './messages/messages.component';
+import { MessageComponent } from './messages/message/message.component';
+import { SelectFriendComponent } from './messages/select-friend/select-friend.component';
+import { MessagesEffects } from './messages/messages-store/messages.effects';
 
 @NgModule({
   declarations: [
@@ -45,7 +49,10 @@ import { AuthInterceptor } from './auth/auth.interceptor';
     ErrorComponent,
     SpinnerComponent,
     UserInfoComponent,
-    UsersListComponent
+    UsersListComponent,
+    MessagesComponent,
+    MessageComponent,
+    SelectFriendComponent
   ],
   imports: [
     BrowserModule,
@@ -53,7 +60,7 @@ import { AuthInterceptor } from './auth/auth.interceptor';
     RouterModule.forRoot(appRouting, { useHash: true }),
     BrowserAnimationsModule,
     StoreModule.forRoot(fromAppReducer.appReducer),
-    EffectsModule.forRoot([AuthEffects, ProfileEffects, PostsEffects]),
+    EffectsModule.forRoot([AuthEffects, ProfileEffects, PostsEffects, MessagesEffects]),
     ReactiveFormsModule,
   ],
   providers: [
