@@ -28,9 +28,11 @@ import { animate, style, transition, trigger } from '@angular/animations';
       transition('* => void', [
         style({
           opacity: 1,
+          transform: 'translateY(0px)',
         }),
         animate(600, style({
           opacity: 0,
+          transform: 'translateY(-50px)',
         }))
       ])
     ]),
@@ -50,7 +52,6 @@ export class MessageComponent implements OnInit, OnDestroy, AfterViewInit {
   friendId: number;
   profile: Profile;
   messages: Message[];
-
   allMessages: Message[];
   editMode: boolean = false;
   editIndex: number;
@@ -111,9 +112,10 @@ export class MessageComponent implements OnInit, OnDestroy, AfterViewInit {
       ));
       newMessage.text = this.messageForm.value.message;
 
-      this.store.dispatch(new MessagesActions.EditMessage({
-        newMessage, index: this.editIndex
-      }));
+      this.store.dispatch(new MessagesActions.EditMessage(
+        { newMessage, index: this.editIndex }
+      ));
+      this.store.dispatch(new MessagesActions.SaveMessages());
     }
 
     this.editMode = false;

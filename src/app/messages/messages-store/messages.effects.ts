@@ -33,7 +33,7 @@ export class MessagesEffects {
 
   @Effect({ dispatch: false })
   saveMessages = this.actions.pipe(
-    ofType(MessagesActions.SEND_MESSAGE, MessagesActions.EDIT_MESSAGE, MessagesActions.DELETE_MESSAGE),
+    ofType(MessagesActions.SEND_MESSAGE, MessagesActions.DELETE_MESSAGE, MessagesActions.SAVE_MESSAGES),
     withLatestFrom(this.store.select('messages')),
     switchMap(([action, state]) => {
       return this.http.put<Message[]>('https://profile-877f9-default-rtdb.europe-west1.firebasedatabase.app/messages.json', state.messages);

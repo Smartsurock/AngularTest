@@ -21,7 +21,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
     private store: Store<fromAppReducer.AppState>) { }
 
   profile: Profile;
-
   editing: boolean;
   profileSub: Subscription;
   authSub: Subscription;
@@ -30,14 +29,12 @@ export class ProfileComponent implements OnInit, OnDestroy {
   edit: boolean;
   userId: number;
   userIndex: number;
-
   skillsForm: FormGroup;
   experienceForm: FormGroup;
   skills: boolean = false;
   experience: boolean = false;
   addExperience: boolean = false;
   changeSkills: boolean = false;
-
   formId: number;
   newUserId: number;
 
@@ -89,15 +86,15 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.unsubscriber(this.routeSub);
   }
 
-  onEdit() {
-    this.router.navigate(['edit'], { relativeTo: this.route });
-    this.store.dispatch(new ProfileActions.EditMode(true));
-  }
-
   unsubscriber(subscription: Subscription) {
     if (subscription) {
       subscription.unsubscribe();
     }
+  }
+
+  onEdit() {
+    this.router.navigate(['edit'], { relativeTo: this.route });
+    this.store.dispatch(new ProfileActions.EditMode(true));
   }
 
   routeAnimation(outlet: RouterOutlet) {
@@ -155,9 +152,9 @@ export class ProfileComponent implements OnInit, OnDestroy {
       const newJob = new Job(this.experienceForm.value.place, this.experienceForm.value.position, this.experienceForm.value.period);
 
       updatedProfile.jobs.push(newJob);
-      this.store.dispatch(new ProfileActions.EditProfile({
-        newUser: updatedProfile, index: this.userIndex
-      }));
+      this.store.dispatch(new ProfileActions.EditProfile(
+        { newUser: updatedProfile, index: this.userIndex }
+      ));
     } else if (this.formId > -1) {
       const updatJob = new Job(this.experienceForm.value.place, this.experienceForm.value.position, this.experienceForm.value.period);
       const updatedJob = {

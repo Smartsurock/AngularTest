@@ -21,7 +21,7 @@
       <div class="flex-item">
         <div class="main">Общая информация</div>
         <div class="row">
-          <label for="position"><strong>Позиция: </strong></label>
+          <label for="position"><strong>Позиция: *</strong></label>
           <input formControlName="position" id="position" type="text" class="form-control"
             placeholder="{{profileForm.controls.position.invalid && profileForm.controls.position.untouched ? 'Кем ты хочешь стать, когда вырастешь?' : 'Не, ну я серьёзно!'}}">
         </div>
@@ -43,7 +43,7 @@
         </div>
         <div class="main" style="margin-top: 5px;">Личная информация</div>
         <div class="row">
-          <label for="name"><strong>Ф.И.О: </strong> </label>
+          <label for="name"><strong>Ф.И.О: *</strong> </label>
           <input formControlName="name" id="name" type="text" class="form-control"
             placeholder="{{profileForm.controls.name.invalid && profileForm.controls.name.untouched ? 'Как тебя зовут?' : 'Имя! Мне нужно имя!'}}">
         </div>

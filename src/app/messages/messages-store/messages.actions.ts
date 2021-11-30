@@ -6,6 +6,7 @@ export const GET_MESSAGES = 'GET_MESSAGES';
 export const SET_MESSAGES = 'SET_MESSAGES';
 export const EDIT_MESSAGE = 'EDIT_MESSAGE';
 export const DELETE_MESSAGE = 'DELETE_MESSAGE';
+export const SAVE_MESSAGES = 'SAVE_MESSAGES';
 
 export class SendMessage implements Action {
   readonly type = SEND_MESSAGE;
@@ -35,9 +36,14 @@ export class DeleteMessage implements Action {
   constructor(public payload: number) { }
 }
 
+export class SaveMessages implements Action {
+  readonly type = SAVE_MESSAGES;
+}
+
 export type MessagesActions =
   | GetMessages
   | SetMessages
+  | SaveMessages
   | EditMessage
   | DeleteMessage
   | SendMessage;

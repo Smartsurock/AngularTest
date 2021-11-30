@@ -1,13 +1,12 @@
-import { Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { animate, style, transition, trigger } from "@angular/animations";
 import { Post } from '../post.model';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import * as fromAppReducer from 'src/app/store/app.reducer';
-import { Subscription } from 'rxjs';
-import { FormControl, FormGroup } from '@angular/forms';
-import * as PostsActions from '../posts-store/posts.actions';
 import { take } from 'rxjs/operators';
+import { FormControl, FormGroup } from '@angular/forms';
+import * as fromAppReducer from 'src/app/store/app.reducer';
+import * as PostsActions from '../posts-store/posts.actions';
 
 @Component({
   selector: 'app-post',
@@ -34,38 +33,25 @@ import { take } from 'rxjs/operators';
     ]),
   ]
 })
-export class PostComponent implements OnInit, OnDestroy {
+export class PostComponent implements OnInit {
   constructor(private router: Router,
     private store: Store<fromAppReducer.AppState>) { }
 
   @Input() post: Post;
   @Input() index: number;
   @Output() delete = new EventEmitter<any>();
+  @ViewChild('textarea') textarea: ElementRef;
 
   edit: boolean = false;
-
-  authSub: Subscription;
   editForm: FormGroup;
   canEdit: boolean;
 
-  @ViewChild('textarea') textarea: ElementRef;
-
   ngOnInit() {
-    this.authSub = this.store.select('auth').subscribe(state => {
+    this.store.select('auth').pipe(take(1)).subscribe(state => {
       if (state.user) {
         this.canEdit = state.user.email === this.post.userEmail;
       }
     });
-  }
-
-  ngOnDestroy() {
-    this.unsubscriber(this.authSub);
-  }
-
-  unsubscriber(subscription: Subscription) {
-    if (subscription) {
-      subscription.unsubscribe();
-    }
   }
 
   onEditBtn() {
@@ -88,8 +74,10 @@ export class PostComponent implements OnInit, OnDestroy {
     let newPost = JSON.parse(JSON.stringify(this.post));
     newPost.text = this.editForm.value.edit.replace(/\s{2,}/g, ' ');
     this.store.dispatch(new PostsActions.EditPost({
-      index: this.index, newPost: newPost
+      index: this.index, newPost
     }));
+    this.store.dispatch(new PostsActions.SavePosts());
+    this.onCancelBtn();
   }
 
   onCancelBtn() {

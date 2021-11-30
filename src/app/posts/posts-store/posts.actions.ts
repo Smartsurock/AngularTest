@@ -38,8 +38,6 @@ export class SetPosts implements Action {
 
 export class SavePosts implements Action {
   readonly type = SAVE_POSTS;
-
-  constructor(public payload: Post[]) { }
 }
 
 export type PostsActions =
