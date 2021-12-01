@@ -11,6 +11,7 @@ export class UserComponent implements OnInit {
 
   @Input() profile: Profile;
   @Input() index: number;
+  @Input() newMessagesValue: number[];
 
   ngOnInit() {
   }

@@ -7,5 +7,6 @@ export class Message {
     public imageUrl: string,
     public text: string,
     public edit: number,
+    public unread: boolean,
   ) { }
 }

@@ -21,7 +21,7 @@ export const appRouting: Routes = [
   { path: 'login', component: AuthComponent, data: { animation: '4' } },
   {
     path: 'profile', component: ProfileComponent,
-    resolve: [ProfileResolver, PostsResolver],
+    resolve: [ProfileResolver, PostsResolver, MessagesResolver],
     canActivate: [AuthGuard],
     children: [
       {
@@ -43,7 +43,7 @@ export const appRouting: Routes = [
   },
   {
     path: 'users', component: UsersComponent,
-    resolve: [ProfileResolver],
+    resolve: [ProfileResolver, MessagesResolver],
     canActivate: [AuthGuard],
     data: { animation: '2' },
     children: [
@@ -53,7 +53,7 @@ export const appRouting: Routes = [
   },
   {
     path: 'posts', component: PostsComponent,
-    resolve: [ProfileResolver, PostsResolver],
+    resolve: [ProfileResolver, PostsResolver, MessagesResolver],
     canActivate: [AuthGuard],
     data: { animation: '3' }
   },

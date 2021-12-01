@@ -6,7 +6,7 @@
       <div (click)="onUserClick(friendId === message.friendId)" class="image"
         style="background-image: url({{message.imageUrl}});">
       </div>
-      <div class="text">
+      <div class="text" [ngClass]="message.unread && friendId !== message.friendId ? 'text-new' : ''">
         <p><span (click)="onUserClick(friendId === message.friendId)">
             {{message.name === '' ? 'Юзер, который решил что профиль можно не редактировать...' : message.name}}
           </span>

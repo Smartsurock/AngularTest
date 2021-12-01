@@ -5,12 +5,14 @@ export interface State {
   user: User;
   error: string;
   loading: boolean;
+  logged: boolean;
 }
 
 const initialState = {
   user: null,
   error: null,
   loading: false,
+  logged: false,
 }
 
 export function authReducer(
@@ -24,6 +26,7 @@ export function authReducer(
         user: user,
         error: null,
         loading: false,
+        logged: true
       }
 
     case AuthActions.LOGIN_START:
@@ -38,6 +41,7 @@ export function authReducer(
       return {
         ...state,
         user: null,
+        logged: false
       }
 
     case AuthActions.AUTH_FAIL:

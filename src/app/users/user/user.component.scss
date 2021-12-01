@@ -16,6 +16,7 @@
 .row {
   display: flex;
   height: 100px;
+  position: relative;
   @media (max-width: 500px) {
     height: auto;
   }
@@ -65,5 +66,25 @@
         display: none;
       }
     }
+  }
+}
+.new-messages {
+  position: absolute;
+  top: 0;
+  right: 0;
+  min-width: 20px;
+  height: 20px;
+  & span {
+    padding: 0px 3px;
+    width: 100%;
+    height: 100%;
+    display: inline-block;
+    border-radius: 50%;
+    line-height: 21px;
+    font-size: 13px;
+    font-weight: 600;
+    text-align: center;
+    box-shadow: inset 0px 0px 12px rgb(0, 110, 255), inset 0px 0px 12px rgb(0, 110, 255), 0px 0px 7px rgb(0, 110, 255),
+      0px 0px 5px rgb(0, 110, 255);
   }
 }

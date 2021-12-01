@@ -9,7 +9,7 @@
       </li>
       <li>
         <a routerLink="/messages" (click)="onLinkClick()" routerLinkActive="active" class="menu__link">
-          <span>Сообщения</span>
+          <span>Сообщения <i *ngIf="unreadMessages">{{unreadMessages}}</i></span>
           <span>Сообщения</span>
         </a>
       </li>

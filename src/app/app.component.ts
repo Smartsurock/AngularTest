@@ -19,17 +19,24 @@ export class AppComponent implements OnInit, OnDestroy {
 
   burger: boolean = false;
   burgerSub: Subscription;
+  authSub: Subscription;
+  sideBar: boolean = false;
 
   ngOnInit() {
     this.store.dispatch(new AuthActions.AutoLogin());
 
+    this.authSub = this.store.select('auth').subscribe(state => {
+      this.sideBar = state.logged;
+    });
+
     this.burgerSub = this.burgerService.burger.subscribe((value) => {
       this.burger = value;
-    })
+    });
   }
 
   ngOnDestroy() {
     this.unsubscriber(this.burgerSub);
+    this.unsubscriber(this.authSub);
   }
 
   unsubscriber(subscription: Subscription) {

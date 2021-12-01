@@ -3,7 +3,7 @@
     <app-header></app-header>
   </div>
   <div class="content">
-    <div class="side-bar" [ngClass]="burger ? 'active' : ''">
+    <div class="side-bar" *ngIf="sideBar" [ngClass]="burger ? 'active' : ''" [@side]>
       <app-side-bar></app-side-bar>
     </div>
     <div [@route]="routeAnimation(outlet)" #profile class="profile">

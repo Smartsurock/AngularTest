@@ -24,16 +24,6 @@ import { animate, style, transition, trigger } from '@angular/animations';
         animate(600, style({
           opacity: 1,
         }))
-      ]),
-      transition('* => void', [
-        style({
-          opacity: 1,
-          transform: 'translateY(0px)',
-        }),
-        animate(600, style({
-          opacity: 0,
-          transform: 'translateY(-50px)',
-        }))
       ])
     ]),
   ]
@@ -53,6 +43,7 @@ export class MessageComponent implements OnInit, OnDestroy, AfterViewInit {
   profile: Profile;
   messages: Message[];
   allMessages: Message[];
+  newMessages: Message[];
   editMode: boolean = false;
   editIndex: number;
 
@@ -70,10 +61,7 @@ export class MessageComponent implements OnInit, OnDestroy, AfterViewInit {
         return profile.privateMail === this.privateMail;
       });
       this.profile = state.profiles[myIndex];
-      let friendIndex = state.profiles.findIndex(profile => {
-        return profile.id == this.friendId;
-      });
-      this.friendMail = state.profiles[friendIndex].privateMail;
+      this.friendMail = state.profiles[this.friendId].privateMail;
     });
 
     if (this.privateMail === this.friendMail) {
@@ -91,6 +79,10 @@ export class MessageComponent implements OnInit, OnDestroy, AfterViewInit {
       })
     });
 
+    this.newMessages = this.messages.filter(message => {
+      return message.unread === true;
+    });
+
     this.messageForm = new FormGroup({
       message: new FormControl(null, Validators.required),
     });
@@ -100,17 +92,18 @@ export class MessageComponent implements OnInit, OnDestroy, AfterViewInit {
     if (this.messageForm.invalid) return;
 
     if (!this.editMode) {
-      const newMessage = new Message(this.friendId, this.friendMail, this.privateMail, this.profile.name, this.profile.imageUrl, this.messageForm.value.message, new Date().getTime());
+      const newMessage = new Message(this.friendId, this.friendMail, this.privateMail, this.profile.name, this.profile.imageUrl, this.messageForm.value.message, new Date().getTime(), true);
       this.store.dispatch(new MessagesActions.SendMessage(newMessage));
 
       setTimeout(() => {
         this.scrollTop();
       }, 0);
     } else {
-      const newMessage = JSON.parse(JSON.stringify(
+      const newMessage: Message = JSON.parse(JSON.stringify(
         this.allMessages[this.editIndex]
       ));
       newMessage.text = this.messageForm.value.message;
+      newMessage.unread = true;
 
       this.store.dispatch(new MessagesActions.EditMessage(
         { newMessage, index: this.editIndex }
@@ -131,6 +124,11 @@ export class MessageComponent implements OnInit, OnDestroy, AfterViewInit {
   ngOnDestroy() {
     this.unsubscriber(this.routeSub);
     this.unsubscriber(this.messagesSub);
+
+    if (this.updateMessagesTimeout) {
+      clearTimeout(this.updateMessagesTimeout);
+      this.updateMessagesTimeout = null;
+    }
   }
 
   @HostListener('document:keydown.escape', ['$event'])
@@ -141,6 +139,8 @@ export class MessageComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild('scrollContainer') scrollContainer: ElementRef;
   @ViewChild('textarea') textarea: ElementRef;
 
+  updateMessagesTimeout: any = null;
+
   ngAfterViewInit() {
     this.scrollTop();
     this.textarea.nativeElement.addEventListener('keydown',
@@ -149,6 +149,22 @@ export class MessageComponent implements OnInit, OnDestroy, AfterViewInit {
           this.onSubmit();
         }
       });
+
+    this.updateMessagesTimeout = setTimeout(() => {
+      if (this.newMessages.length) {
+        const newMessages = JSON.parse(JSON.stringify(this.newMessages));
+        newMessages.forEach((message: Message) => {
+          let index = this.allMessages.findIndex(messages => {
+            return messages.edit === message.edit && messages.fromEmail !== this.privateMail;
+          });
+          message.unread = false;
+          this.store.dispatch(new MessagesActions.EditMessage(
+            { newMessage: message, index }
+          ));
+          this.store.dispatch(new MessagesActions.SaveMessages());
+        });
+      }
+    }, 2000);
   }
 
   scrollTop() {

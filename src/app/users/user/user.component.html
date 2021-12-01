@@ -1,6 +1,10 @@
 <a class="user" [routerLink]="index">
   <div class="row">
-    <div class="avatar" style="background-image: url({{profile.imageUrl}})"></div>
+    <div *ngIf="newMessagesValue" class="new-messages">
+      <span *ngIf="newMessagesValue[index]">{{newMessagesValue[index]}}</span>
+    </div>
+    <div class="avatar" style="background-image: url({{profile.imageUrl}})">
+    </div>
     <div class="content">
       <p><strong>Имя: {{profile.name}}</strong></p>
       <p><span>Позиция: {{profile.position}}</span></p>

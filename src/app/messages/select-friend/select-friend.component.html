@@ -1,3 +1,4 @@
 <div class="container">
-  <app-user *ngFor="let profile of profiles; let i = index" [profile]="profile" [index]="i"></app-user>
+  <app-user *ngFor="let friend of friends; let i = index" [profile]="friend" [index]="i" [newMessagesValue]="newMessagesValue">
+  </app-user>
 </div>

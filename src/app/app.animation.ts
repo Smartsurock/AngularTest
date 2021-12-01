@@ -25,4 +25,16 @@ export const appAnimation = [
       ], { optional: true }),
     ])
   ]),
+  trigger('side', [
+    transition('void => *', [
+      style({
+        opacity: 0,
+        transform: 'translateX(-100%)',
+      }),
+      animate(500, style({
+        opacity: 1,
+        transform: 'translateX(0)',
+      }))
+    ])
+  ])
 ];

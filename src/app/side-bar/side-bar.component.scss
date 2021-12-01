@@ -18,6 +18,22 @@
       left: 0;
       box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.2), 2px 2px 4px rgba(0, 0, 0, 0.2);
       border-radius: 2px;
+      & i {
+        font-style: normal;
+        display: inline-block;
+        position: absolute;
+        line-height: 21px;
+        font-size: 13px;
+        font-weight: 600;
+        top: 8px;
+        right: 8px;
+        min-width: 20px;
+        height: 20px;
+        padding: 0px 3px;
+        box-shadow: inset 0px 0px 12px rgb(0, 110, 255), inset 0px 0px 12px rgb(0, 110, 255), 0px 0px 7px rgb(0, 110, 255),
+        0px 0px 5px rgb(0, 110, 255);
+        border-radius: 50%;
+      }
     }
     & span:first-child {
       top: 0;

@@ -4,4 +4,10 @@
   height: calc(100vh - 115px);
   width: 100%;
   overflow: auto;
+  @media (max-width: 1024px) {
+    height: calc(100vh - 95px);
+  }
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
