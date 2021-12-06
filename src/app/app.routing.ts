@@ -15,6 +15,7 @@ import { MessagesComponent } from "./messages/messages.component";
 import { MessageComponent } from "./messages/message/message.component";
 import { SelectFriendComponent } from "./messages/select-friend/select-friend.component";
 import { MessagesResolver } from "./messages/messages.resolver";
+import { GifsComponent } from "./gifs/gifs.component";
 
 export const appRouting: Routes = [
   { path: '', redirectTo: '/profile', pathMatch: 'full' },
@@ -56,6 +57,12 @@ export const appRouting: Routes = [
     resolve: [ProfileResolver, PostsResolver, MessagesResolver],
     canActivate: [AuthGuard],
     data: { animation: '3' }
+  },
+  {
+    path: 'gifs', component: GifsComponent,
+    resolve: [MessagesResolver],
+    canActivate: [AuthGuard],
+    data: { animation: '11' }
   },
   {
     path: 'error', component: ErrorPageComponent,

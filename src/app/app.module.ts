@@ -32,6 +32,7 @@ import { MessagesComponent } from './messages/messages.component';
 import { MessageComponent } from './messages/message/message.component';
 import { SelectFriendComponent } from './messages/select-friend/select-friend.component';
 import { MessagesEffects } from './messages/messages-store/messages.effects';
+import { GifsComponent } from './gifs/gifs.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import { MessagesEffects } from './messages/messages-store/messages.effects';
     UsersListComponent,
     MessagesComponent,
     MessageComponent,
-    SelectFriendComponent
+    SelectFriendComponent,
+    GifsComponent
   ],
   imports: [
     BrowserModule,

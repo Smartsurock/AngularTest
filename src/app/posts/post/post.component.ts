@@ -39,7 +39,7 @@ export class PostComponent implements OnInit {
 
   @Input() post: Post;
   @Input() index: number;
-  @Output() delete = new EventEmitter<any>();
+  @Output() delete = new EventEmitter<number>();
   @ViewChild('textarea') textarea: ElementRef;
 
   edit: boolean = false;

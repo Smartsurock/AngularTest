@@ -10,6 +10,7 @@
     cursor: pointer;
     color: #000;
     transform-style: preserve-3d;
+    will-change: transform;
     transition: 0.5s;
     & span {
       position: absolute;

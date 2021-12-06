@@ -1,0 +1,10 @@
+<div class="gifs-container">
+  <div class="image-container">
+    <div class="gifs-image" *ngFor="let gif of gifs">
+      <img src="{{gif.images.downsized.url}}" alt="{{gif.id}}" />
+    </div>
+  </div>
+  <div class="gifs-btn">
+    <button (click)="onLoadMore()"><span>Load more ...</span></button>
+  </div>
+</div>
