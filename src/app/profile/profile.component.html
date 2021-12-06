@@ -31,7 +31,7 @@
     <div class="skills">
       <div class="main">Скилы <span *ngIf="edit && !changeSkills" class="change-btn"
           (click)="onChangeSkills()">Изменить</span></div>
-      <p *ngIf="!skills">{{profile.skills}}</p>
+      <pre *ngIf="!skills">{{profile.skills}}</pre>
     </div>
     <form *ngIf="skills" [formGroup]="skillsForm" class="form">
       <textarea #textarea class="skills-edit" formControlName="skills" name="skills" resize="false"></textarea>

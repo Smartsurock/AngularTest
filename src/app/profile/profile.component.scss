@@ -18,6 +18,9 @@
 }
 .info {
   min-height: 400px;
+  @media (max-width: 767px) {
+    min-height: 740px;
+  }
 }
 .row {
   display: flex;
@@ -195,6 +198,9 @@
 .skills,
 .experience {
   margin: 10px 0px 0px 0px;
+  & pre {
+    white-space: pre-wrap;
+  }
 }
 .skills-edit {
   z-index: 10;

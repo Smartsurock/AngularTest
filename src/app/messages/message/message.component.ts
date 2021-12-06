@@ -92,7 +92,7 @@ export class MessageComponent implements OnInit, OnDestroy, AfterViewInit {
     if (this.messageForm.invalid) return;
 
     if (!this.editMode) {
-      const newMessage = new Message(this.friendId, this.friendMail, this.privateMail, this.profile.name, this.profile.imageUrl, this.messageForm.value.message, new Date().getTime(), true);
+      const newMessage = new Message(this.friendId, this.friendMail, this.privateMail, this.profile.name, this.profile.imageUrl, this.messageForm.value.message.trim(), new Date().getTime(), true);
       this.store.dispatch(new MessagesActions.SendMessage(newMessage));
 
       setTimeout(() => {
@@ -102,7 +102,7 @@ export class MessageComponent implements OnInit, OnDestroy, AfterViewInit {
       const newMessage: Message = JSON.parse(JSON.stringify(
         this.allMessages[this.editIndex]
       ));
-      newMessage.text = this.messageForm.value.message;
+      newMessage.text = this.messageForm.value.message.trim();
       newMessage.unread = true;
 
       this.store.dispatch(new MessagesActions.EditMessage(
@@ -145,7 +145,7 @@ export class MessageComponent implements OnInit, OnDestroy, AfterViewInit {
     this.scrollTop();
     this.textarea.nativeElement.addEventListener('keydown',
       (event: KeyboardEvent) => {
-        if (event.key === 'Enter') {
+        if (event.key === 'Enter' && !event.shiftKey) {
           this.onSubmit();
         }
       });
@@ -164,7 +164,7 @@ export class MessageComponent implements OnInit, OnDestroy, AfterViewInit {
           this.store.dispatch(new MessagesActions.SaveMessages());
         });
       }
-    }, 2000);
+    }, 2500);
   }
 
   scrollTop() {
