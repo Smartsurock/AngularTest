@@ -1,20 +1,22 @@
 <div class="back" (click)="onEscape()">&#9668; Назад</div>
 <div class="container" #scrollContainer>
   <div class="content">
-    <div class="content-item" [@add] [ngClass]="friendId === message.friendId ? 'content-revers' : ''"
+    <div class="content-item" [@add] [ngClass]="friendId !== message.friendId ? 'content-revers' : ''"
       *ngFor="let message of messages; let i = index">
-      <div (click)="onUserClick(friendId === message.friendId)" class="image"
-        style="background-image: url({{message.imageUrl}});">
-      </div>
       <div class="text" [ngClass]="message.unread && friendId !== message.friendId ? 'text-new' : ''">
-        <p><span (click)="onUserClick(friendId === message.friendId)">
+        <p>
+          <i *ngIf="friendId === message.friendId">
+            <span (click)="onDeleteMessage(i)">&#10006;</span>
+            <span (click)="onEditMessage(i)">&#9998;</span>
+          </i>
+          <span (click)="onUserClick(friendId === message.friendId)">
             {{message.name === '' ? 'Юзер, который решил что профиль можно не редактировать...' : message.name}}
           </span>
-          <i *ngIf="friendId === message.friendId">
-            <span (click)="onEditMessage(i)">&#9998;</span>
-            <span (click)="onDeleteMessage(i)">&#10006;</span></i>
         </p>
         <pre>{{message.text}}</pre>
+      </div>
+      <div (click)="onUserClick(friendId === message.friendId)" class="image"
+        style="background-image: url({{message.imageUrl}});">
       </div>
     </div>
   </div>
