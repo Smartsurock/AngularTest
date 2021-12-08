@@ -89,14 +89,17 @@ export class MessageComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   onSubmit() {
-    if (this.messageForm.invalid) return;
+    if (this.messageForm.invalid || !this.messageForm.value.message.trim()) {
+      this.messageForm.reset();
+      return;
+    }
 
     if (!this.editMode) {
       const newMessage = new Message(this.friendId, this.friendMail, this.privateMail, this.profile.name, this.profile.imageUrl, this.messageForm.value.message.trim(), new Date().getTime(), true);
       this.store.dispatch(new MessagesActions.SendMessage(newMessage));
 
       setTimeout(() => {
-        this.scrollTop();
+        this.scrollToBottom();
       }, 0);
     } else {
       const newMessage: Message = JSON.parse(JSON.stringify(
@@ -142,7 +145,7 @@ export class MessageComponent implements OnInit, OnDestroy, AfterViewInit {
   updateMessagesTimeout: any = null;
 
   ngAfterViewInit() {
-    this.scrollTop();
+    this.scrollToBottom();
     this.textarea.nativeElement.addEventListener('keydown',
       (event: KeyboardEvent) => {
         if (event.key === 'Enter' && !event.shiftKey) {
@@ -167,7 +170,7 @@ export class MessageComponent implements OnInit, OnDestroy, AfterViewInit {
     }, 2500);
   }
 
-  scrollTop() {
+  scrollToBottom() {
     this.scrollContainer.nativeElement.scrollTop = this.scrollContainer.nativeElement.scrollHeight;
   }
 
