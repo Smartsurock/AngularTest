@@ -1,5 +1,4 @@
 import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { animate, style, transition, trigger } from "@angular/animations";
 import { Post } from '../post.model';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -7,35 +6,19 @@ import { take } from 'rxjs/operators';
 import { FormControl, FormGroup } from '@angular/forms';
 import * as fromAppReducer from 'src/app/store/app.reducer';
 import * as PostsActions from '../posts-store/posts.actions';
+import { postAnimation } from './post.animation';
 
 @Component({
   selector: 'app-post',
   templateUrl: './post.component.html',
   styleUrls: ['./post.component.scss'],
-  animations: [
-    trigger('add', [
-      transition('void => *', [
-        style({
-          opacity: 0,
-        }),
-        animate(600, style({
-          opacity: 1,
-        }))
-      ]),
-      transition('* => void', [
-        style({
-          opacity: 1,
-        }),
-        animate(600, style({
-          opacity: 0,
-        }))
-      ])
-    ]),
-  ]
+  animations: [postAnimation]
 })
 export class PostComponent implements OnInit {
-  constructor(private router: Router,
-    private store: Store<fromAppReducer.AppState>) { }
+  constructor(
+    private router: Router,
+    private store: Store<fromAppReducer.AppState>,
+  ) { }
 
   @Input() post: Post;
   @Input() index: number;

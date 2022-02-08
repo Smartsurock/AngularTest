@@ -7,7 +7,7 @@ export class BurgerService {
 
   public burger = new Subject<boolean>();
 
-  toogleBurger(value: boolean) {
+  toggleBurger(value: boolean) {
     this.burger.next(value);
   }
 }

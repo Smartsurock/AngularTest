@@ -14,8 +14,10 @@ import * as fromAppReducer from './store/app.reducer';
   animations: [appAnimation]
 })
 export class AppComponent implements OnInit, OnDestroy {
-  constructor(private store: Store<fromAppReducer.AppState>,
-    private burgerService: BurgerService) { }
+  constructor(
+    private store: Store<fromAppReducer.AppState>,
+    private burgerService: BurgerService,
+  ) { }
 
   burger: boolean = false;
   burgerSub: Subscription;
@@ -51,9 +53,10 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   @ViewChild('profile') profile: ElementRef;
-  @HostListener("document:click", ["$event"]) toggleBtn(event: Event) {
+  @HostListener("document:click", ["$event"])
+  toggleBtn(event: Event) {
     if (this.profile.nativeElement.contains(event.target)) {
-      this.burgerService.toogleBurger(false);
+      this.burgerService.toggleBurger(false);
     }
   }
 }

@@ -16,9 +16,11 @@ import { Job } from './profile-models/job.model';
   animations: [profileAnimation]
 })
 export class ProfileComponent implements OnInit, OnDestroy {
-  constructor(private router: Router,
+  constructor(
+    private router: Router,
     private route: ActivatedRoute,
-    private store: Store<fromAppReducer.AppState>) { }
+    private store: Store<fromAppReducer.AppState>,
+  ) { }
 
   profile: Profile;
   editing: boolean;
@@ -156,10 +158,10 @@ export class ProfileComponent implements OnInit, OnDestroy {
         { newUser: updatedProfile, index: this.userIndex }
       ));
     } else if (this.formId > -1) {
-      const updatJob = new Job(this.experienceForm.value.place, this.experienceForm.value.position, this.experienceForm.value.period);
+      const updateJob = new Job(this.experienceForm.value.place, this.experienceForm.value.position, this.experienceForm.value.period);
       const updatedJob = {
         ...updatedProfile.jobs[index],
-        ...updatJob
+        ...updateJob,
       }
       const updatedJobs = [...updatedProfile.jobs];
       updatedJobs[index] = updatedJob;

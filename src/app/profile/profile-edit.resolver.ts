@@ -13,7 +13,7 @@ export class ProfileEditResolver implements Resolve<any> {
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     return this.store.select('profile').pipe(
       take(1),
-      map(recipesState => recipesState.editing),
+      map(state => state.editing),
       switchMap(editing => {
         if (!editing) {
           this.store.dispatch(new ProfileActions.EditMode(true));

@@ -9,8 +9,10 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./error-page.component.scss']
 })
 export class ErrorPageComponent implements OnInit, OnDestroy {
-  constructor(private location: Location,
-    private route: ActivatedRoute) { }
+  constructor(
+    private location: Location,
+    private route: ActivatedRoute,
+  ) { }
 
   errorMessage: string;
   routeSub: Subscription;
@@ -31,8 +33,8 @@ export class ErrorPageComponent implements OnInit, OnDestroy {
     }
   }
 
-  @HostListener('document:keydown.escape', ['$event'])
-  onEscape(event: KeyboardEvent) {
+  @HostListener('document:keydown.escape')
+  onEscape() {
     this.location.back();
   }
 }

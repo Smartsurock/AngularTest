@@ -11,7 +11,8 @@ import * as AuthActions from './auth-store/auth.actions';
   styleUrls: ['./auth.component.scss']
 })
 export class AuthComponent implements OnInit, OnDestroy {
-  constructor(private store: Store<fromAppReducer.AppState>,
+  constructor(
+    private store: Store<fromAppReducer.AppState>,
   ) { }
 
   authForm: FormGroup;

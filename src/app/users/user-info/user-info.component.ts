@@ -12,8 +12,8 @@ export class UserInfoComponent implements OnInit {
   ngOnInit() {
   }
 
-  @HostListener('document:keydown.escape', ['$event'])
-  onEscape(event: KeyboardEvent) {
+  @HostListener('document:keydown.escape')
+  onEscape() {
     this.location.back();
   }
 }

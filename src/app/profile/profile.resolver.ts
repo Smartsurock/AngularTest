@@ -9,13 +9,15 @@ import { Actions, ofType } from "@ngrx/effects";
 
 @Injectable({ providedIn: 'root' })
 export class ProfileResolver implements Resolve<any> {
-  constructor(private store: Store<fromAppReducer.AppState>,
-    private actions: Actions) { }
+  constructor(
+    private store: Store<fromAppReducer.AppState>,
+    private actions: Actions,
+  ) { }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     return this.store.select('profile').pipe(
       take(1),
-      map(recipesState => recipesState.profiles),
+      map(state => state.profiles),
       switchMap(profiles => {
         if (!profiles.length) {
           this.store.dispatch(new ProfileActions.GetProfiles());

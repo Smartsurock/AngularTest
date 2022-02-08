@@ -6,10 +6,10 @@ import { Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { Profile } from 'src/app/profile/profile-models/profile.model';
 import { Message } from '../message.model';
-import * as fromAppReducer from 'src/app/store/app.reducer';
-import * as MessagesActions from '../messages-store/messages.actions';
 import { Location } from '@angular/common';
 import { animate, style, transition, trigger } from '@angular/animations';
+import * as fromAppReducer from 'src/app/store/app.reducer';
+import * as MessagesActions from '../messages-store/messages.actions';
 
 @Component({
   selector: 'app-message',
@@ -29,10 +29,12 @@ import { animate, style, transition, trigger } from '@angular/animations';
   ]
 })
 export class MessageComponent implements OnInit, OnDestroy, AfterViewInit {
-  constructor(private route: ActivatedRoute,
+  constructor(
+    private route: ActivatedRoute,
     private router: Router,
     private location: Location,
-    private store: Store<fromAppReducer.AppState>) { }
+    private store: Store<fromAppReducer.AppState>,
+  ) { }
 
   messageForm: FormGroup;
   routeSub: Subscription;
@@ -46,6 +48,10 @@ export class MessageComponent implements OnInit, OnDestroy, AfterViewInit {
   newMessages: Message[];
   editMode: boolean = false;
   editIndex: number;
+  updateMessagesTimeout: any = null;
+
+  @ViewChild('scrollContainer') scrollContainer: ElementRef;
+  @ViewChild('textarea') textarea: ElementRef;
 
   ngOnInit() {
     this.store.select('auth').pipe(take(1)).subscribe(state => {
@@ -134,15 +140,10 @@ export class MessageComponent implements OnInit, OnDestroy, AfterViewInit {
     }
   }
 
-  @HostListener('document:keydown.escape', ['$event'])
+  @HostListener('document:keydown.escape')
   onEscape() {
     this.location.back();
   }
-
-  @ViewChild('scrollContainer') scrollContainer: ElementRef;
-  @ViewChild('textarea') textarea: ElementRef;
-
-  updateMessagesTimeout: any = null;
 
   ngAfterViewInit() {
     this.scrollToBottom();
@@ -193,15 +194,11 @@ export class MessageComponent implements OnInit, OnDestroy, AfterViewInit {
     this.store.dispatch(new MessagesActions.DeleteMessage(deleteIndex));
   }
 
-  onUserClick(value: boolean) {
-    if (value) {
-      this.router.navigate(['/profile']);
+  onUserClick() {
+    if (this.friendId >= 0) {
+      this.router.navigate([`/users/${this.friendId}`]);
     } else {
-      if (this.friendId >= 0) {
-        this.router.navigate([`/users/${this.friendId}`]);
-      } else {
-        this.router.navigate(['/error']);
-      }
+      this.router.navigate(['/error']);
     }
   }
 }

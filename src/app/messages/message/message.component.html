@@ -9,14 +9,13 @@
             <span (click)="onDeleteMessage(i)">&#10006;</span>
             <span (click)="onEditMessage(i)">&#9998;</span>
           </i>
-          <span (click)="onUserClick(friendId === message.friendId)">
+          <span (click)="onUserClick()">
             {{message.name === '' ? 'Юзер, который решил что профиль можно не редактировать...' : message.name}}
           </span>
         </p>
         <pre>{{message.text}}</pre>
       </div>
-      <div (click)="onUserClick(friendId === message.friendId)" class="image"
-        style="background-image: url({{message.imageUrl}});">
+      <div (click)="onUserClick()" class="image" style="background-image: url({{message.imageUrl}});">
       </div>
     </div>
   </div>

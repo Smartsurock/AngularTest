@@ -13,8 +13,10 @@ import { headerAnimation } from './header.animation';
   animations: [headerAnimation]
 })
 export class HeaderComponent implements OnInit, OnDestroy {
-  constructor(private store: Store<fromAppReducer.AppState>,
-    private burgerService: BurgerService) { }
+  constructor(
+    private store: Store<fromAppReducer.AppState>,
+    private burgerService: BurgerService,
+  ) { }
 
   isLoged = false;
   authSub: Subscription;
@@ -55,10 +57,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   onLogout() {
     this.store.dispatch(new AuthActions.Logout());
-    this.burgerService.toogleBurger(false);
+    this.burgerService.toggleBurger(false);
   }
 
   onBurgerMenu() {
-    this.burgerService.toogleBurger(!this.burger);
+    this.burgerService.toggleBurger(!this.burger);
   }
 }

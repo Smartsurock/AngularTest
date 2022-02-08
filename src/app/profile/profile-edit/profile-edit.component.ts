@@ -17,9 +17,11 @@ import * as MessagesActions from 'src/app/messages/messages-store/messages.actio
   styleUrls: ['./profile-edit.component.scss']
 })
 export class ProfileEditComponent implements OnInit, OnDestroy {
-  constructor(private router: Router,
+  constructor(
+    private router: Router,
     private route: ActivatedRoute,
-    private store: Store<fromAppReducer.AppState>) { }
+    private store: Store<fromAppReducer.AppState>,
+  ) { }
 
   userMail: string;
   profile: Profile;
@@ -70,50 +72,58 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
     ));
 
     //Updating posts and messages
-    if (this.profileName !== this.profileForm.value.name || this.profileImage !== this.profileForm.value.imageUrl) {
-      this.store.select('posts').pipe(take(1)).subscribe(state => {
-        const posts = state.posts.filter((post, index) => {
-          if (post.userEmail === this.userMail) {
-            this.postsIndex.push(index);
-          }
-          return post.userEmail === this.userMail;
-        });
-        this.posts = JSON.parse(JSON.stringify(posts));
-      });
-
-      this.posts.forEach(post => {
-        post.imageUrl = this.profileForm.value.imageUrl;
-        post.name = this.profileForm.value.name;
-        let index = this.postsIndex.shift();
-        this.store.dispatch(new PostsActions.EditPost(
-          { index, newPost: post }
-        ));
-      });
-      this.store.dispatch(new PostsActions.SavePosts());
-
-      this.store.select('messages').pipe(take(1)).subscribe(state => {
-        const messages = state.messages.filter((message, index) => {
-          if (message.fromEmail === this.userMail) {
-            this.messagesIndex.push(index);
-          }
-          return message.fromEmail === this.userMail;
-        });
-        this.messages = JSON.parse(JSON.stringify(messages));
-      });
-
-      this.messages.forEach(message => {
-        message.imageUrl = this.profileForm.value.imageUrl;
-        message.name = this.profileForm.value.name;
-        let index = this.messagesIndex.shift();
-        this.store.dispatch(new MessagesActions.EditMessage(
-          { newMessage: message, index }
-        ));
-      });
-      this.store.dispatch(new MessagesActions.SaveMessages());
+    if (this.profileName !== this.profileForm.value.name
+      || this.profileImage !== this.profileForm.value.imageUrl) {
+      this.updatePosts();
+      this.updateMessages();
     }
     //==================================================
 
     this.onCancel();
+  }
+
+  updatePosts() {
+    this.store.select('posts').pipe(take(1)).subscribe(state => {
+      const posts = state.posts.filter((post, index) => {
+        if (post.userEmail === this.userMail) {
+          this.postsIndex.push(index);
+        }
+        return post.userEmail === this.userMail;
+      });
+      this.posts = JSON.parse(JSON.stringify(posts));
+    });
+
+    this.posts.forEach(post => {
+      post.imageUrl = this.profileForm.value.imageUrl;
+      post.name = this.profileForm.value.name;
+      let index = this.postsIndex.shift();
+      this.store.dispatch(new PostsActions.EditPost(
+        { index, newPost: post }
+      ));
+    });
+    this.store.dispatch(new PostsActions.SavePosts());
+  }
+
+  updateMessages() {
+    this.store.select('messages').pipe(take(1)).subscribe(state => {
+      const messages = state.messages.filter((message, index) => {
+        if (message.fromEmail === this.userMail) {
+          this.messagesIndex.push(index);
+        }
+        return message.fromEmail === this.userMail;
+      });
+      this.messages = JSON.parse(JSON.stringify(messages));
+    });
+
+    this.messages.forEach(message => {
+      message.imageUrl = this.profileForm.value.imageUrl;
+      message.name = this.profileForm.value.name;
+      let index = this.messagesIndex.shift();
+      this.store.dispatch(new MessagesActions.EditMessage(
+        { newMessage: message, index }
+      ));
+    });
+    this.store.dispatch(new MessagesActions.SaveMessages());
   }
 
   onCancel() {

@@ -10,8 +10,10 @@ import * as fromAppReducer from '../store/app.reducer';
   styleUrls: ['./side-bar.component.scss']
 })
 export class SideBarComponent implements OnInit, OnDestroy {
-  constructor(private burgerService: BurgerService,
-    private store: Store<fromAppReducer.AppState>,) { }
+  constructor(
+    private burgerService: BurgerService,
+    private store: Store<fromAppReducer.AppState>,
+  ) { }
 
   unreadMessages: number;
   myMail: string;
@@ -34,7 +36,7 @@ export class SideBarComponent implements OnInit, OnDestroy {
 
   onLinkClick() {
     setTimeout(() => {
-      this.burgerService.toogleBurger(false);
+      this.burgerService.toggleBurger(false);
     }, 200);
   }
 
@@ -44,8 +46,6 @@ export class SideBarComponent implements OnInit, OnDestroy {
   }
 
   unsubscriber(subscription: Subscription) {
-    if (subscription) {
-      subscription.unsubscribe();
-    }
+    if (subscription) subscription.unsubscribe();
   }
 }
