@@ -28,7 +28,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   authSub: Subscription;
   routeSub: Subscription;
   userMail: string;
-  edit: boolean;
+  edit: boolean | null;
   userId: number;
   userIndex: number;
   skillsForm: FormGroup;
@@ -77,7 +77,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   createNewProfile() {
     const newProfile = new Profile(this.newUserId, '', '', '', '', '', '', '', '', '', '', '', '', '', '', []);
     newProfile.privateMail = this.userMail;
-    newProfile.imageUrl = 'https://cdn-0.imagensemoldes.com.br/wp-content/uploads/2020/03/Lilo-Stitch-PNG-15-1419x1536.png';
+    newProfile.imageUrl = 'https://i.pinimg.com/originals/6b/66/94/6b6694b05e0f4d3bd2104a73c500500c.png';
 
     this.store.dispatch(new ProfileActions.AddProfile(newProfile));
   }
@@ -185,7 +185,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   onCancelExperience() {
     this.experience = false;
-    this.formId = null;
+    this.formId = -1;
   }
 
   onSendMessage() {

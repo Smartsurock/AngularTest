@@ -22,7 +22,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   authSub: Subscription;
   burgerSub: Subscription;
   time: Date;
-  timer: Observable<number> = null;
+  timer: Observable<number>;
   burger: boolean = false;
 
   ngOnInit() {

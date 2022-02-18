@@ -77,12 +77,12 @@ export class PostComponent implements OnInit {
       userIndex = state.profiles.findIndex(profile => {
         return profile.privateMail === this.post.userEmail;
       });
+      if (userIndex >= 0) {
+        this.router.navigate([`/users/${userIndex}`]);
+      } else {
+        this.router.navigate(['/error']);
+      }
     });
 
-    if (userIndex >= 0) {
-      this.router.navigate([`/users/${userIndex}`]);
-    } else {
-      this.router.navigate(['/error']);
-    }
   }
 }

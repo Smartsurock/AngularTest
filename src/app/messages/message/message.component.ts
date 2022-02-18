@@ -49,13 +49,14 @@ export class MessageComponent implements OnInit, OnDestroy, AfterViewInit {
   editMode: boolean = false;
   editIndex: number;
   updateMessagesTimeout: any = null;
-
   @ViewChild('scrollContainer') scrollContainer: ElementRef;
   @ViewChild('textarea') textarea: ElementRef;
 
   ngOnInit() {
     this.store.select('auth').pipe(take(1)).subscribe(state => {
-      this.privateMail = state.user.email;
+      if (state.user) {
+        this.privateMail = state.user.email;
+      }
     });
 
     this.routeSub = this.route.params.subscribe((params: Params) => {
@@ -125,9 +126,7 @@ export class MessageComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   unsubscriber(subscription: Subscription) {
-    if (subscription) {
-      subscription.unsubscribe();
-    }
+    if (subscription) subscription.unsubscribe();
   }
 
   ngOnDestroy() {

@@ -97,9 +97,11 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
       post.imageUrl = this.profileForm.value.imageUrl;
       post.name = this.profileForm.value.name;
       let index = this.postsIndex.shift();
-      this.store.dispatch(new PostsActions.EditPost(
-        { index, newPost: post }
-      ));
+      if (index !== undefined) {
+        this.store.dispatch(new PostsActions.EditPost(
+          { index, newPost: post }
+        ));
+      }
     });
     this.store.dispatch(new PostsActions.SavePosts());
   }
@@ -119,10 +121,13 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
       message.imageUrl = this.profileForm.value.imageUrl;
       message.name = this.profileForm.value.name;
       let index = this.messagesIndex.shift();
-      this.store.dispatch(new MessagesActions.EditMessage(
-        { newMessage: message, index }
-      ));
+      if (index !== undefined) {
+        this.store.dispatch(new MessagesActions.EditMessage(
+          { newMessage: message, index }
+        ));
+      }
     });
+
     this.store.dispatch(new MessagesActions.SaveMessages());
   }
 

@@ -16,7 +16,7 @@ export class AuthComponent implements OnInit, OnDestroy {
   ) { }
 
   authForm: FormGroup;
-  error: string = null;
+  error: string | null = null;
   loading: boolean = false;
   authSub: Subscription;
 

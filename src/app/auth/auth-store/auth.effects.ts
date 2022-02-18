@@ -28,7 +28,7 @@ function handleAuthentication(email: string, userId: string, token: string, expi
   })
 }
 
-function handleError(response) {
+function handleError(response: any) {
   let errorMessage = "Непонятный еррор!";
 
   if (!response.error || !response.error.error) {
@@ -134,7 +134,7 @@ export class AuthEffects {
         id: string;
         _token: string;
         _tokenExpirationDate: Date;
-      } = JSON.parse(localStorage.getItem('userData'));
+      } = JSON.parse((localStorage.getItem('userData') || ""));
 
       if (!userData) {
         return { type: "Invalid Action" };
