@@ -7,8 +7,10 @@ import * as fromAppReducer from "../store/app.reducer";
 
 @Injectable({ providedIn: 'root' })
 export class AuthGuard implements CanActivate {
-  constructor(private store: Store<fromAppReducer.AppState>,
-    private router: Router) { }
+  constructor(
+    private store: Store<fromAppReducer.AppState>,
+    private router: Router,
+  ) { }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | UrlTree | Promise<boolean | UrlTree> | Observable<boolean | UrlTree> {
     return this.store.select('auth').pipe(

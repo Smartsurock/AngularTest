@@ -89,9 +89,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   unsubscriber(subscription: Subscription) {
-    if (subscription) {
-      subscription.unsubscribe();
-    }
+    if (subscription) subscription.unsubscribe();
   }
 
   onEdit() {

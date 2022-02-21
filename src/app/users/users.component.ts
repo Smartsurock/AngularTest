@@ -11,8 +11,7 @@ import { usersAnimation } from './users.animation';
 export class UsersComponent implements OnInit {
   constructor() { }
 
-  ngOnInit() {
-  }
+  ngOnInit(): void { }
 
   routeAnimation(outlet: RouterOutlet) {
     return outlet && outlet.activatedRouteData

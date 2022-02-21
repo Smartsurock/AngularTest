@@ -2,8 +2,8 @@ import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } fr
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
-import * as fromAppReducer from '../store/app.reducer';
 import { Post } from './post.model';
+import * as fromAppReducer from '../store/app.reducer';
 import * as PostActions from './posts-store/posts.actions';
 
 @Component({
@@ -54,7 +54,7 @@ export class PostsComponent implements OnInit, OnDestroy, AfterViewInit {
     this.scrollTop();
     this.textarea.nativeElement.addEventListener('keydown',
       (event: KeyboardEvent) => {
-        if (event.key === 'Enter') {
+        if (event.key === 'Enter' && !event.shiftKey) {
           this.onSubmit();
         }
       });
@@ -71,9 +71,7 @@ export class PostsComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   unsubscriber(subscription: Subscription) {
-    if (subscription) {
-      subscription.unsubscribe();
-    }
+    if (subscription) subscription.unsubscribe();
   }
 
   onSubmit() {

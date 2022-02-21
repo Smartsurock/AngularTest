@@ -15,9 +15,7 @@ const initialState: State = {
   logged: false,
 }
 
-export function authReducer(
-  state: State = initialState,
-  action: AuthActions.AuthActions) {
+export function authReducer(state: State = initialState, action: AuthActions.AuthActions) {
   switch (action.type) {
     case AuthActions.AUTH_SUCCESS:
       const user = new User(action.payload.email, action.payload.userId, action.payload.token, action.payload.expirationDate);

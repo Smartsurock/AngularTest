@@ -42,9 +42,7 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   unsubscriber(subscription: Subscription) {
-    if (subscription) {
-      subscription.unsubscribe();
-    }
+    if (subscription) subscription.unsubscribe();
   }
 
   routeAnimation(outlet: RouterOutlet) {

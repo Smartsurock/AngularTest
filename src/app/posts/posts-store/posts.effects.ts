@@ -9,9 +9,11 @@ import { Post } from "../post.model";
 
 @Injectable()
 export class PostsEffects {
-  constructor(private store: Store<fromAppReducer.AppState>,
+  constructor(
+    private store: Store<fromAppReducer.AppState>,
     private actions: Actions,
-    private http: HttpClient) { }
+    private http: HttpClient,
+  ) { }
 
   @Effect()
   getPosts = this.actions.pipe(

@@ -1,4 +1,4 @@
-<a class="user" [routerLink]="index">
+<a class="user" [routerLink]="index" *ngIf="profile.privateMail !== myMail">
   <div class="row">
     <div *ngIf="newMessagesValue" class="new-messages">
       <span *ngIf="newMessagesValue[index]">{{newMessagesValue[index]}}</span>

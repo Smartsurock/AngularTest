@@ -1,10 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable, Subscriber, Subscription } from 'rxjs';
-import * as AuthActions from '../auth/auth-store/auth.actions';
-import * as fromAppReducer from '../store/app.reducer';
 import { BurgerService } from './burger.service';
 import { headerAnimation } from './header.animation';
+import * as AuthActions from '../auth/auth-store/auth.actions';
+import * as fromAppReducer from '../store/app.reducer';
 
 @Component({
   selector: 'app-header',

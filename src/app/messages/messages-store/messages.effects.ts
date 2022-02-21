@@ -3,15 +3,17 @@ import { Injectable } from "@angular/core";
 import { Actions, Effect, ofType } from "@ngrx/effects";
 import { Store } from "@ngrx/store";
 import { map, switchMap, withLatestFrom } from "rxjs/operators";
-import * as fromAppReducer from "src/app/store/app.reducer";
 import { Message } from "../message.model";
+import * as fromAppReducer from "src/app/store/app.reducer";
 import * as MessagesActions from "./messages.actions";
 
 @Injectable()
 export class MessagesEffects {
-  constructor(private actions: Actions,
+  constructor(
+    private actions: Actions,
     private store: Store<fromAppReducer.AppState>,
-    private http: HttpClient) { }
+    private http: HttpClient,
+  ) { }
 
   @Effect()
   getMessages = this.actions.pipe(

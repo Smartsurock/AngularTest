@@ -11,14 +11,12 @@ import * as AuthActions from './auth-store/auth.actions';
   styleUrls: ['./auth.component.scss']
 })
 export class AuthComponent implements OnInit, OnDestroy {
-  constructor(
-    private store: Store<fromAppReducer.AppState>,
-  ) { }
+  constructor(private store: Store<fromAppReducer.AppState>) { }
 
   authForm: FormGroup;
-  error: string | null = null;
-  loading: boolean = false;
   authSub: Subscription;
+  loading: boolean = false;
+  error: string | null = null;
 
   ngOnInit() {
     this.authForm = new FormGroup({

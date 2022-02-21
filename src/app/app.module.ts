@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { SideBarComponent } from './side-bar/side-bar.component';
@@ -33,6 +32,7 @@ import { MessageComponent } from './messages/message/message.component';
 import { SelectFriendComponent } from './messages/select-friend/select-friend.component';
 import { MessagesEffects } from './messages/messages-store/messages.effects';
 import { GifsComponent } from './gifs/gifs.component';
+import { UnreadMessagesComponent } from './side-bar/unread-messages/unread-messages.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +54,8 @@ import { GifsComponent } from './gifs/gifs.component';
     MessagesComponent,
     MessageComponent,
     SelectFriendComponent,
-    GifsComponent
+    GifsComponent,
+    UnreadMessagesComponent
   ],
   imports: [
     BrowserModule,

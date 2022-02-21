@@ -11,8 +11,7 @@ import { messagesAnimation } from './messages.animation';
 export class MessagesComponent implements OnInit {
   constructor() { }
 
-  ngOnInit() {
-  }
+  ngOnInit(): void { }
 
   routeAnimation(outlet: RouterOutlet) {
     return outlet && outlet.activatedRouteData

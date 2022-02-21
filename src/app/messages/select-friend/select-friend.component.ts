@@ -19,7 +19,7 @@ export class SelectFriendComponent implements OnInit {
   newUnreadMessages: any[] = [];
   newMessagesValue: number[] = [];
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.store.select('auth').pipe(take(1)).subscribe(state => {
       if (state.user) {
         this.myMail = state.user.email;
@@ -27,9 +27,7 @@ export class SelectFriendComponent implements OnInit {
     });
 
     this.store.select('profile').pipe(take(1)).subscribe(state => {
-      this.friends = state.profiles.filter(profile => {
-        return profile.privateMail !== this.myMail;
-      });
+      this.friends = state.profiles;
     });
 
     this.store.select('messages').pipe(take(1)).subscribe(state => {

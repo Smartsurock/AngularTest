@@ -9,8 +9,7 @@ import { Component, HostListener, OnInit } from '@angular/core';
 export class UserInfoComponent implements OnInit {
   constructor(private location: Location) { }
 
-  ngOnInit() {
-  }
+  ngOnInit(): void { }
 
   @HostListener('document:keydown.escape')
   onEscape() {

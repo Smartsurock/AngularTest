@@ -13,7 +13,7 @@ export class ErrorComponent implements OnInit {
 
   @Input() error: string;
 
-  ngOnInit() { }
+  ngOnInit(): void { }
 
   onCleanError() {
     this.store.dispatch(new AuthActions.ClearError());

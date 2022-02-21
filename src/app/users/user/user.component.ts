@@ -1,5 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { take } from 'rxjs/operators';
 import { Profile } from 'src/app/profile/profile-models/profile.model';
+import * as fromAppReducer from 'src/app/store/app.reducer';
 
 @Component({
   selector: 'app-user',
@@ -7,12 +10,17 @@ import { Profile } from 'src/app/profile/profile-models/profile.model';
   styleUrls: ['./user.component.scss']
 })
 export class UserComponent implements OnInit {
-  constructor() { }
+  constructor(private store: Store<fromAppReducer.AppState>) { }
 
   @Input() profile: Profile;
   @Input() index: number;
   @Input() newMessagesValue: number[];
 
-  ngOnInit() {
+  myMail: string | undefined;
+
+  ngOnInit(): void {
+    this.store.select('auth').pipe(take(1)).subscribe(state => {
+      this.myMail = state.user?.email;
+    });
   }
 }

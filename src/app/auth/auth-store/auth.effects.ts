@@ -134,7 +134,7 @@ export class AuthEffects {
         id: string;
         _token: string;
         _tokenExpirationDate: Date;
-      } = JSON.parse((localStorage.getItem('userData') || ""));
+      } = JSON.parse((localStorage.getItem('userData')!));
 
       if (!userData) {
         return { type: "Invalid Action" };

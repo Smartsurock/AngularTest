@@ -3,12 +3,12 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Post } from 'src/app/posts/post.model';
-import * as PostsActions from 'src/app/posts/posts-store/posts.actions';
-import * as fromAppReducer from 'src/app/store/app.reducer';
-import * as ProfileActions from '../profile-store/profile.actions';
 import { Profile } from '../profile-models/profile.model';
 import { take } from 'rxjs/operators';
 import { Message } from 'src/app/messages/message.model';
+import * as PostsActions from 'src/app/posts/posts-store/posts.actions';
+import * as fromAppReducer from 'src/app/store/app.reducer';
+import * as ProfileActions from '../profile-store/profile.actions';
 import * as MessagesActions from 'src/app/messages/messages-store/messages.actions';
 
 @Component({
@@ -34,7 +34,7 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
   messages: Message[];
   messagesIndex: number[] = [];
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.store.select('auth').pipe(take(1)).subscribe(state => {
       if (state.user) {
         this.userMail = state.user.email;

@@ -4,9 +4,9 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { take } from 'rxjs/operators';
 import { FormControl, FormGroup } from '@angular/forms';
+import { postAnimation } from './post.animation';
 import * as fromAppReducer from 'src/app/store/app.reducer';
 import * as PostsActions from '../posts-store/posts.actions';
-import { postAnimation } from './post.animation';
 
 @Component({
   selector: 'app-post',
@@ -24,12 +24,11 @@ export class PostComponent implements OnInit {
   @Input() index: number;
   @Output() delete = new EventEmitter<number>();
   @ViewChild('textarea') textarea: ElementRef;
-
   edit: boolean = false;
   editForm: FormGroup;
   canEdit: boolean;
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.store.select('auth').pipe(take(1)).subscribe(state => {
       if (state.user) {
         this.canEdit = state.user.email === this.post.userEmail;
@@ -46,7 +45,7 @@ export class PostComponent implements OnInit {
       this.textarea.nativeElement.focus()
       this.textarea.nativeElement.addEventListener('keydown',
         (event: KeyboardEvent) => {
-          if (event.key === 'Enter') {
+          if (event.key === 'Enter' && !event.shiftKey) {
             this.onSaveBtn();
           }
         });
@@ -83,6 +82,5 @@ export class PostComponent implements OnInit {
         this.router.navigate(['/error']);
       }
     });
-
   }
 }
